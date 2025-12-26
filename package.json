@@ -1,0 +1,23 @@
+{
+  "name": "with-tailwind",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "build:packages": "turbo run build --filter=@repo/ui --filter=@repo/eslint-config --filter=@repo/typescript-config",
+    "dev": "turbo run dev --filter=web",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "pnpm --filter web test",
+    "precommit": "pnpm lint && pnpm check-types && pnpm test"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.0",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "turbo": "^2.7.2"
+  },
+  "packageManager": "pnpm@10.19.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
