@@ -1,0 +1,123 @@
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== THEME COLORS - Gera utility classes ===== */
+@theme inline {
+  /* background */
+  --color-background-level-one: var(--background-level-one);
+  --color-background-level-three: var(--background-level-three);
+  --color-background-fixed-level-one: var(--background-fixed-level-one);
+  --color-background-fixed-level-two: var(--background-fixed-level-two);
+  --color-background-fixed-level-three: var(--background-fixed-level-three);
+  --color-background-feedback-success: var(--background-feedback-success);
+  --color-background-feedback-warning: var(--background-feedback-warning);
+
+  /* text */
+  --color-text-primary: var(--text-primary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-fixed-primary: var(--text-fixed-primary);
+  --color-text-fixed-black: var(--text-fixed-black);
+  --color-text-disable-primary: var(--text-disable-primary);
+  --color-text-feedback-error-primary: var(--text-feedback-error-primary);
+  --color-text-feedback-success-secondary: var(
+    --text-feedback-success-secondary
+  );
+  --color-text-feedback-warning-secondary: var(
+    --text-feedback-warning-secondary
+  );
+
+  /* action */
+  --color-action-brand-secondary-hover: var(--action-brand-secondary-hover);
+
+  /* border */
+  --color-border-brand: var(--border-brand);
+}
+
+/* ===== LIGHT THEME (default) ===== */
+:root,
+.light {
+  /* background */
+  --background-level-one: #f2f3f5;
+  --background-level-three: #d8dae0;
+  --background-fixed-level-one: #121212;
+  --background-fixed-level-two: #1b1b1b;
+  --background-fixed-level-three: #252525;
+  --background-feedback-success: #e7f8f2;
+  --background-feedback-warning: #fffbed;
+
+  /* text */
+  --text-primary: #25282d;
+  --text-tertiary: #7c8597;
+  --text-fixed-primary: #f3f3f3;
+  --text-fixed-black: #000000;
+  --text-disable-primary: #a3aab6;
+  --text-feedback-error-primary: #fa4d56;
+  --text-feedback-success-secondary: #0a6f4d;
+  --text-feedback-warning-secondary: #977f2e;
+
+  /* action */
+  --action-brand-secondary-hover: #7ee9ff;
+
+  /* border */
+  --border-brand: #00f2b1;
+}
+
+/* ===== DARK THEME ===== */
+.dark {
+  /* background */
+  --background-level-one: #0a0a0a;
+  --background-level-three: #1a1a1a;
+  --background-fixed-level-one: #121212;
+  --background-fixed-level-two: #1b1b1b;
+  --background-fixed-level-three: #252525;
+  --background-feedback-success: #0d2e24;
+  --background-feedback-warning: #2e2a1a;
+
+  /* text */
+  --text-primary: #f3f3f3;
+  --text-tertiary: #9ca3af;
+  --text-fixed-primary: #f3f3f3;
+  --text-fixed-black: #000000;
+  --text-disable-primary: #6b7280;
+  --text-feedback-error-primary: #fa4d56;
+  --text-feedback-success-secondary: #34d399;
+  --text-feedback-warning-secondary: #fbbf24;
+
+  /* action */
+  --action-brand-secondary-hover: #7ee9ff;
+
+  /* border */
+  --border-brand: #00f2b1;
+}
+
+/* ===== TYPOGRAPHY UTILITIES ===== */
+
+@utility font-75-light {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+@utility font-100-light {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+@utility font-200-medium {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+@utility font-400-medium {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 130%;
+}
