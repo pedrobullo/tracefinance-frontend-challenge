@@ -1,0 +1,73 @@
+/*
+  ================== DESIGN TOKENS ==================
+  ===== Starting from here tokens can be added! =====
+  ===================================================
+*/
+
+/* ===== TOKENS LIGHT (DEFAULT) ===== */
+:root {
+  /* Background Tokens */
+  --background-level-one: #f2f3f5;
+  --background-level-three: #d8dae0;
+  --background-fixed-level-one: #121212;
+  --background-fixed-level-two: #1b1b1b;
+  --background-fixed-level-three: #252525;
+  --background-feedback-success: #e7f8f2;
+  --background-feedback-warning: #fffbed;
+
+  /* Text Tokens */
+  --text-primary: #25282d;
+  --text-tertiary: #7c8597;
+  --text-fixed-primary: #f3f3f3;
+  --text-fixed-black: #000000;
+  --text-disable-primary: #a3aab6;
+  --text-feedback-error-primary: #fa4d56;
+  --text-feedback-success-secondary: #0a6f4d;
+  --text-feedback-warning-secondary: #977f2e;
+
+  /* Action Tokens */
+  --action-brand-secondary-hover: #7ee9ff;
+
+  /* Border Tokens */
+  --border-brand: #00f2b1;
+  --border-primary: #d8dae0;
+
+  /* Typography Tokens */
+  --font-family-primary: var(--font-poppins), sans-serif;
+  --font-size-75: 12px;
+  --font-size-100: 14px;
+  --font-size-200: 16px;
+  --font-size-400: 20px;
+  --font-weight-light: 300;
+  --font-weight-medium: 500;
+  --line-height-default: 130%;
+}
+
+/* ===== TOKENS DARK ===== */
+.dark {
+  /* Background Tokens */
+  --background-level-one: #0d0e12;
+  --background-level-three: #1a1c23;
+  --background-fixed-level-one: #121212;
+  --background-fixed-level-two: #1b1b1b;
+  --background-fixed-level-three: #252525;
+  --background-feedback-success: #0a2e1f;
+  --background-feedback-warning: #332b14;
+
+  /* Text Tokens */
+  --text-primary: #e8eaed;
+  --text-tertiary: #8a92a3;
+  --text-fixed-primary: #f3f3f3;
+  --text-fixed-black: #000000;
+  --text-disable-primary: #5a6070;
+  --text-feedback-error-primary: #ff6b75;
+  --text-feedback-success-secondary: #2dd4a4;
+  --text-feedback-warning-secondary: #e6a84e;
+
+  /* Action Tokens */
+  --action-brand-secondary-hover: #5dd9f0;
+
+  /* Border Tokens */
+  --border-brand: #00f2b1;
+  --border-primary: #2a2d35;
+}
