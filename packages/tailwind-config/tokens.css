@@ -11,12 +11,14 @@
   --light-background-level-three: #d8dae0;
   --light-background-feedback-success: #e7f8f2;
   --light-background-feedback-warning: #fffbed;
+  --light-background-feedback-error: #ffebec;
 
   /* Text */
   --light-text-primary: #25282d;
   --light-text-tertiary: #7c8597;
   --light-text-disable-primary: #a3aab6;
   --light-text-feedback-error-primary: #fa4d56;
+  --light-text-feedback-error-secondary: #c41e3a;
   --light-text-feedback-success-secondary: #0a6f4d;
   --light-text-feedback-warning-secondary: #977f2e;
 
@@ -32,12 +34,14 @@
   --dark-background-level-three: #1a1c23;
   --dark-background-feedback-success: #0a2e1f;
   --dark-background-feedback-warning: #332b14;
+  --dark-background-feedback-error: #3d1319;
 
   /* Text */
   --dark-text-primary: #e8eaed;
   --dark-text-tertiary: #8a92a3;
   --dark-text-disable-primary: #5a6070;
   --dark-text-feedback-error-primary: #ff6b75;
+  --dark-text-feedback-error-secondary: #ff8a94;
   --dark-text-feedback-success-secondary: #2dd4a4;
   --dark-text-feedback-warning-secondary: #e6a84e;
 

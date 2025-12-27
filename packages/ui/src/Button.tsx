@@ -3,31 +3,56 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 const button = tv(
   {
-    base: "inline-flex items-center justify-center text-100-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+    slots: {
+      base: "inline-flex items-center justify-center font-100-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+      icon: "",
+    },
     variants: {
       hierarchy: {
-        primary: "bg-border-brand text-fixed-black hover:opacity-90",
-        secondary:
-          "bg-level-three text-primary hover:bg-level-one border border-border-primary",
-        quiet: "bg-transparent text-primary hover:bg-level-three",
+        primary: {
+          base: "bg-border-brand text-fixed-black hover:opacity-90",
+        },
+        secondary: {
+          base: "bg-level-three text-primary hover:bg-level-one border border-border-primary",
+        },
+        quiet: {
+          base: "bg-transparent text-primary hover:bg-level-three",
+        },
       },
       size: {
-        small: "h-8 px-4 py-1 gap-1",
-        medium: "h-10 px-6 py-2 gap-2",
-        large: "h-12 px-8 py-3 gap-2",
+        small: {
+          base: "h-8 px-4 py-1 gap-1",
+          icon: "h-4 w-4",
+        },
+        medium: {
+          base: "h-10 px-6 py-2 gap-2",
+          icon: "h-5 w-5",
+        },
+        large: {
+          base: "h-12 px-8 py-3 gap-2",
+          icon: "h-6 w-6",
+        },
       },
       radius: {
-        square: "rounded-lg",
-        rounded: "rounded-full",
+        square: {
+          base: "rounded-lg",
+        },
+        rounded: {
+          base: "rounded-full",
+        },
       },
       fullWidth: {
-        true: "w-full",
+        true: {
+          base: "w-full",
+        },
       },
       iconOnly: {
-        true: "aspect-square",
+        true: {
+          base: "aspect-square",
+        },
       },
     },
-    compoundVariants: [{ iconOnly: true, className: "p-0" }],
+    compoundVariants: [{ iconOnly: true, base: "p-0" }],
     defaultVariants: {
       hierarchy: "primary",
       size: "medium",
@@ -38,12 +63,6 @@ const button = tv(
     twMerge: true,
   }
 );
-
-const iconSizes = {
-  small: "h-4 w-4",
-  medium: "h-5 w-5",
-  large: "h-6 w-6",
-};
 
 export type ButtonHierarchy = VariantProps<typeof button>["hierarchy"];
 export type ButtonSize = VariantProps<typeof button>["size"];
@@ -72,26 +91,17 @@ export function Button({
   className,
   ...props
 }: ButtonProps) {
+  const styles = button({ hierarchy, size, radius, fullWidth, iconOnly });
+
   return (
     <button
       disabled={disabled || isLoading}
-      className={button({
-        hierarchy,
-        size,
-        radius,
-        fullWidth,
-        iconOnly,
-        className,
-      })}
+      className={`${styles.base()} ${className || ""}`}
       {...props}
     >
-      {leftIcon && (
-        <span className={iconSizes[size || "medium"]}>{leftIcon}</span>
-      )}
+      {leftIcon && <span className={styles.icon()}>{leftIcon}</span>}
       {children}
-      {rightIcon && (
-        <span className={iconSizes[size || "medium"]}>{rightIcon}</span>
-      )}
+      {rightIcon && <span className={styles.icon()}>{rightIcon}</span>}
     </button>
   );
 }

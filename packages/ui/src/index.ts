@@ -11,3 +11,6 @@ export {
   type TypographyVariant,
   type TypographyColor,
 } from "./Typography";
+export { Badge, type BadgeProps, type BadgeVariant } from "./Badge";
+export { Input } from "./Input";
+export type { InputProps } from "./Input";

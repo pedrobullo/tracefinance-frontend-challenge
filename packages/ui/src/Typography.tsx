@@ -18,8 +18,9 @@ const typography = tv(
         "fixed-black": "text-fixed-black",
         "disable-primary": "text-disable-primary",
         "feedback-error-primary": "text-feedback-error-primary",
+        "feedback-error-secondary": "text-feedback-error-secondary",
         "feedback-success-secondary": "text-feedback-success-secondary",
-        "feedback-warning-secondary": "text-text-feedback-warning-secondary",
+        "feedback-warning-secondary": "text-feedback-warning-secondary",
       },
     },
     defaultVariants: {
