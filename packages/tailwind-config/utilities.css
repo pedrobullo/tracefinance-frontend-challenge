@@ -19,6 +19,13 @@
   line-height: var(--line-height-default);
 }
 
+@utility font-100-medium {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-100);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-default);
+}
+
 @utility font-200-medium {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-200);

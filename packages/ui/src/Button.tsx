@@ -1,63 +1,96 @@
+import { tv, type VariantProps } from "tailwind-variants";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+const button = tv(
+  {
+    base: "inline-flex items-center justify-center text-100-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+    variants: {
+      hierarchy: {
+        primary: "bg-border-brand text-fixed-black hover:opacity-90",
+        secondary:
+          "bg-level-three text-primary hover:bg-level-one border border-border-primary",
+        quiet: "bg-transparent text-primary hover:bg-level-three",
+      },
+      size: {
+        small: "h-8 px-4 py-1 gap-1",
+        medium: "h-10 px-6 py-2 gap-2",
+        large: "h-12 px-8 py-3 gap-2",
+      },
+      radius: {
+        square: "rounded-lg",
+        rounded: "rounded-full",
+      },
+      fullWidth: {
+        true: "w-full",
+      },
+      iconOnly: {
+        true: "aspect-square",
+      },
+    },
+    compoundVariants: [{ iconOnly: true, className: "p-0" }],
+    defaultVariants: {
+      hierarchy: "primary",
+      size: "medium",
+      radius: "square",
+    },
+  },
+  {
+    twMerge: true,
+  }
+);
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: ButtonVariant;
+const iconSizes = {
+  small: "h-4 w-4",
+  medium: "h-5 w-5",
+  large: "h-6 w-6",
+};
+
+export type ButtonHierarchy = VariantProps<typeof button>["hierarchy"];
+export type ButtonSize = VariantProps<typeof button>["size"];
+export type ButtonRadius = VariantProps<typeof button>["radius"];
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof button> {
+  children?: ReactNode;
   isLoading?: boolean;
   leftIcon?: ReactNode;
-  fullWidth?: boolean;
+  rightIcon?: ReactNode;
 }
-
-const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-black hover:opacity-90",
-  secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
-  outline: "border border-gray-300 bg-transparent hover:bg-gray-50",
-  ghost: "bg-transparent hover:bg-gray-100",
-};
 
 export function Button({
   children,
-  variant = "primary",
+  hierarchy,
+  size,
+  radius,
+  fullWidth,
+  iconOnly,
   isLoading = false,
   leftIcon,
-  fullWidth = false,
+  rightIcon,
   disabled,
-  className = "",
+  className,
   ...props
 }: ButtonProps) {
   return (
     <button
       disabled={disabled || isLoading}
-      className={`
-        inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium rounded-lg
-        transition-colors disabled:opacity-50 disabled:cursor-not-allowed
-        ${variantStyles[variant]} ${fullWidth ? "w-full" : ""} ${className}
-      `}
+      className={button({
+        hierarchy,
+        size,
+        radius,
+        fullWidth,
+        iconOnly,
+        className,
+      })}
       {...props}
     >
-      {isLoading ? (
-        <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-          />
-        </svg>
-      ) : (
-        <>
-          {leftIcon}
-          {children}
-        </>
+      {leftIcon && (
+        <span className={iconSizes[size || "medium"]}>{leftIcon}</span>
+      )}
+      {children}
+      {rightIcon && (
+        <span className={iconSizes[size || "medium"]}>{rightIcon}</span>
       )}
     </button>
   );

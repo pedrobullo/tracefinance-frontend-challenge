@@ -1,5 +1,6 @@
 "use client";
 
+import { Typography } from "@repo/ui";
 import { useTranslation } from "@/contexts/LanguageContext";
 
 export function Header() {
@@ -7,9 +8,9 @@ export function Header() {
 
   return (
     <header className="flex h-[74px] w-full items-center bg-fixed-level-three px-6">
-      <span className="text-200-medium text-fixed-primary">
+      <Typography variant="200-medium" color="fixed-primary">
         {t("pages.banking")}
-      </span>
+      </Typography>
     </header>
   );
 }

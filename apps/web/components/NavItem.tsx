@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Typography } from "@repo/ui";
 import { useTranslation } from "@/contexts/LanguageContext";
 
 interface NavItemProps {
@@ -35,9 +36,9 @@ export function NavItem({
         <span className={isActive ? "text-border-brand" : "text-fixed-primary"}>
           {icon}
         </span>
-        <span className="text-200-medium text-fixed-primary">
+        <Typography variant="200-medium" color="fixed-primary">
           {t(translationKey)}
-        </span>
+        </Typography>
       </div>
       <ChevronRightIcon className="h-5 w-5 text-fixed-primary" />
     </button>

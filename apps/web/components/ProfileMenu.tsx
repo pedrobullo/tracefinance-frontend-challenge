@@ -56,7 +56,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
           <div className="flex gap-2">
             <Button
               onClick={() => handleThemeChange("light")}
-              hierarchy={theme === "light" ? "primary" : "quiet"}
+              hierarchy={theme === "light" ? "primary" : "secondary"}
               size="small"
               fullWidth
               leftIcon={<SunIcon />}
@@ -65,7 +65,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
             </Button>
             <Button
               onClick={() => handleThemeChange("dark")}
-              hierarchy={theme === "dark" ? "primary" : "quiet"}
+              hierarchy={theme === "dark" ? "primary" : "secondary"}
               size="small"
               fullWidth
               leftIcon={<MoonIcon />}
@@ -85,7 +85,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
           <div className="flex gap-2">
             <Button
               onClick={() => handleLanguageChange("en-US")}
-              hierarchy={language === "en-US" ? "primary" : "quiet"}
+              hierarchy={language === "en-US" ? "primary" : "secondary"}
               size="small"
               fullWidth
             >
@@ -93,7 +93,7 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
             </Button>
             <Button
               onClick={() => handleLanguageChange("pt-BR")}
-              hierarchy={language === "pt-BR" ? "primary" : "quiet"}
+              hierarchy={language === "pt-BR" ? "primary" : "secondary"}
               size="small"
               fullWidth
             >

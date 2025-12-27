@@ -28,7 +28,7 @@ export function Sidebar() {
           />
         </nav>
       </div>
-      <ProfileCard companyName="Tesla" userName="Elon Musk" initials="EM" />
+      <ProfileCard companyName="Trace Finance" userName="Elon Musk" />
     </aside>
   );
 }
