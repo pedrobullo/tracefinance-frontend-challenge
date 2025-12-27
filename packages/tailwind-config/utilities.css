@@ -1,0 +1,34 @@
+/*
+  ================== CUSTOM UTILITIES ==================
+  Reusable utility classes for typography and more
+  ======================================================
+*/
+
+/* ===== TYPOGRAPHY UTILITIES ===== */
+@utility font-75-light {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-75);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-default);
+}
+
+@utility font-100-light {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-100);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-default);
+}
+
+@utility font-200-medium {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-default);
+}
+
+@utility font-400-medium {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-400);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-default);
+}

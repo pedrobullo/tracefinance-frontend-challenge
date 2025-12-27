@@ -1,0 +1,82 @@
+/*
+  ================== THEME CONFIGURATION ==================
+  Maps raw tokens to semantic variables + Tailwind theme
+  =========================================================
+*/
+
+/* ===== SEMANTIC VARIABLES - LIGHT (DEFAULT) ===== */
+:root {
+  --background-level-one: var(--light-background-level-one);
+  --background-level-three: var(--light-background-level-three);
+  --background-feedback-success: var(--light-background-feedback-success);
+  --background-feedback-warning: var(--light-background-feedback-warning);
+
+  --text-primary: var(--light-text-primary);
+  --text-tertiary: var(--light-text-tertiary);
+  --text-disable-primary: var(--light-text-disable-primary);
+  --text-feedback-error-primary: var(--light-text-feedback-error-primary);
+  --text-feedback-success-secondary: var(
+    --light-text-feedback-success-secondary
+  );
+  --text-feedback-warning-secondary: var(
+    --light-text-feedback-warning-secondary
+  );
+
+  --action-brand-secondary-hover: var(--light-action-brand-secondary-hover);
+
+  --border-primary: var(--light-border-primary);
+}
+
+/* ===== SEMANTIC VARIABLES - DARK ===== */
+.dark {
+  --background-level-one: var(--dark-background-level-one);
+  --background-level-three: var(--dark-background-level-three);
+  --background-feedback-success: var(--dark-background-feedback-success);
+  --background-feedback-warning: var(--dark-background-feedback-warning);
+
+  --text-primary: var(--dark-text-primary);
+  --text-tertiary: var(--dark-text-tertiary);
+  --text-disable-primary: var(--dark-text-disable-primary);
+  --text-feedback-error-primary: var(--dark-text-feedback-error-primary);
+  --text-feedback-success-secondary: var(
+    --dark-text-feedback-success-secondary
+  );
+  --text-feedback-warning-secondary: var(
+    --dark-text-feedback-warning-secondary
+  );
+
+  --action-brand-secondary-hover: var(--dark-action-brand-secondary-hover);
+
+  --border-primary: var(--dark-border-primary);
+}
+
+/* ===== TAILWIND THEME MAPPING ===== */
+@theme inline {
+  /* Background */
+  --color-level-one: var(--background-level-one);
+  --color-level-three: var(--background-level-three);
+  --color-fixed-level-one: var(--fixed-background-level-one);
+  --color-fixed-level-two: var(--fixed-background-level-two);
+  --color-fixed-level-three: var(--fixed-background-level-three);
+  --color-feedback-success: var(--background-feedback-success);
+  --color-feedback-warning: var(--background-feedback-warning);
+
+  /* Text */
+  --color-primary: var(--text-primary);
+  --color-tertiary: var(--text-tertiary);
+  --color-fixed-primary: var(--fixed-text-primary);
+  --color-fixed-black: var(--fixed-text-black);
+  --color-disable-primary: var(--text-disable-primary);
+  --color-feedback-error-primary: var(--text-feedback-error-primary);
+  --color-feedback-success-secondary: var(--text-feedback-success-secondary);
+  --color-text-feedback-warning-secondary: var(
+    --text-feedback-warning-secondary
+  );
+
+  /* Action */
+  --color-action-brand-secondary-hover: var(--action-brand-secondary-hover);
+
+  /* Border */
+  --color-border-brand: var(--fixed-border-brand);
+  --color-border-primary: var(--border-primary);
+}

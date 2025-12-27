@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "build:packages": "turbo run build --filter=@repo/ui --filter=@repo/eslint-config --filter=@repo/typescript-config",
+    "build:packages": "turbo run build --filter=@repo/ui --filter=@repo/types --filter=@repo/eslint-config --filter=@repo/typescript-config",
     "dev": "turbo run dev --filter=web",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",

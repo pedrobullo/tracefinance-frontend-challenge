@@ -5,6 +5,9 @@
   "private": true,
   "exports": {
     ".": "./shared-styles.css",
+    "./tokens": "./tokens.css",
+    "./theme": "./theme.css",
+    "./utilities": "./utilities.css",
     "./postcss": "./postcss.config.js"
   },
   "devDependencies": {

@@ -1,63 +1,8 @@
-@import "tailwindcss";
 @import "@repo/tailwind-config";
-@import "./tokens.css";
 
-/* ===== TAILWIND THEME WITH TOKENS ===== */
-@theme inline {
-  /* background */
-  --color-level-one: var(--background-level-one);
-  --color-level-three: var(--background-level-three);
-  --color-fixed-level-one: var(--background-fixed-level-one);
-  --color-fixed-level-two: var(--background-fixed-level-two);
-  --color-fixed-level-three: var(--background-fixed-level-three);
-  --color-feedback-success: var(--background-feedback-success);
-  --color-feedback-warning: var(--background-feedback-warning);
+/* Important link with ui package */
+@import "@repo/ui/styles.css";
 
-  /* text */
-  --color-primary: var(--text-primary);
-  --color-tertiary: var(--text-tertiary);
-  --color-fixed-primary: var(--text-fixed-primary);
-  --color-fixed-black: var(--text-fixed-black);
-  --color-disable-primary: var(--text-disable-primary);
-  --color-feedback-error-primary: var(--text-feedback-error-primary);
-  --color-feedback-success-secondary: var(--text-feedback-success-secondary);
-  --color-text-feedback-warning-secondary: var(
-    --text-feedback-warning-secondary
-  );
-
-  /* action */
-  --color-action-brand-secondary-hover: var(--action-brand-secondary-hover);
-
-  /* border */
-  --color-border-brand: var(--border-brand);
-  --color-border-primary: var(--border-primary);
-}
-
-/* ===== TYPOGRAPHY UTILITIES ===== */
-@utility font-75-light {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-75);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-default);
-}
-
-@utility font-100-light {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-100);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-default);
-}
-
-@utility font-200-medium {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-200);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-default);
-}
-
-@utility font-400-medium {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-400);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-default);
+body {
+  font-family: var(--font-poppins), sans-serif;
 }

@@ -1,11 +1,9 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
 
-import { Providers } from "@/contexts/Providers";
-import { COOKIE_NAMES } from "@/constants/cookies";
-import { ThemeMode } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { locales, type Locale } from "@/lib/i18n";
+import { MainLayout } from "@/components";
 
 interface LocaleLayoutProps {
   children: ReactNode;
@@ -26,17 +24,10 @@ export default async function LocaleLayout({
   if (!locales.some((l) => l.toLowerCase() === locale.toLowerCase())) {
     notFound();
   }
-  const cookieStore = await cookies();
-  const themeCookie = cookieStore.get(COOKIE_NAMES.THEME);
-
-  const initialTheme: ThemeMode | undefined =
-    themeCookie?.value === "light" || themeCookie?.value === "dark"
-      ? themeCookie.value
-      : undefined;
 
   return (
-    <Providers initialLocale={locale as Locale} initialTheme={initialTheme}>
-      {children}
-    </Providers>
+    <LanguageProvider locale={locale as Locale}>
+      <MainLayout>{children}</MainLayout>
+    </LanguageProvider>
   );
 }
