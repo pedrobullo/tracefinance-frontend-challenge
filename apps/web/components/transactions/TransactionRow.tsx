@@ -1,6 +1,5 @@
-import { Typography } from "@repo/ui";
+import { Typography, TableRow, TableCell } from "@repo/ui";
 import type { Transaction } from "@repo/types/transaction";
-
 import { TransactionStatusBadge } from "./TransactionStatusBadge";
 import { TransactionAmount } from "./TransactionAmount";
 
@@ -15,42 +14,41 @@ function formatDate(dateString: string): string {
   const hours = date.getHours();
   const period = hours >= 12 ? "pm" : "am";
   const displayHours = hours % 12 || 12;
-
   return `${day} ${month} -${displayHours}${period}`;
 }
 
 export function TransactionRow({ transaction }: TransactionRowProps) {
   return (
-    <tr className="border-b border-border-primary last:border-b-0">
-      <td className="px-6 py-5">
+    <TableRow>
+      <TableCell>
         <Typography variant="100-light" color="primary">
           {transaction.id}
         </Typography>
-      </td>
-      <td className="px-6 py-5">
+      </TableCell>
+      <TableCell>
         <Typography variant="100-light" color="primary">
           {transaction.description || "-"}
         </Typography>
-      </td>
-      <td className="px-6 py-5">
+      </TableCell>
+      <TableCell>
         <Typography variant="100-light" color="primary">
           {transaction.type}
         </Typography>
-      </td>
-      <td className="px-6 py-5">
+      </TableCell>
+      <TableCell>
         <Typography variant="100-light" color="primary">
           {formatDate(transaction.createdAt)}
         </Typography>
-      </td>
-      <td className="px-6 py-5">
+      </TableCell>
+      <TableCell>
         <TransactionStatusBadge status={transaction.status} />
-      </td>
-      <td className="px-6 py-5">
+      </TableCell>
+      <TableCell>
         <TransactionAmount
           amount={transaction.amount}
           currency={transaction.currency}
         />
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 }

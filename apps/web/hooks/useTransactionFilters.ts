@@ -13,6 +13,8 @@ import {
   type TransactionType,
 } from "@repo/types/constants";
 import { useTranslation } from "@/contexts";
+import type { MonthRange } from "@repo/ui";
+import { formatDateRange } from "@/utils/date";
 
 type TabValue = "ALL" | TransactionType;
 
@@ -22,6 +24,14 @@ interface ActiveFilter {
   value: string;
 }
 
+interface FilterUpdates {
+  type?: TabValue;
+  status?: TransactionStatus;
+  search?: string;
+  dateRange?: MonthRange;
+  page?: number;
+}
+
 interface UseTransactionFilters {
   filters: TransactionFilters;
   activeTab: TabValue;
@@ -29,41 +39,18 @@ interface UseTransactionFilters {
   activeFilters: ActiveFilter[];
   hasActiveFilters: boolean;
   currentPage: number;
-  setActiveTab: (tab: TabValue) => void;
-  setSearchQuery: (query: string) => void;
-  setStatus: (status: TransactionStatus | undefined) => void;
-  setCurrency: (currency: Currency | undefined) => void;
-  setPage: (page: number) => void;
+  dateRange: MonthRange;
+  setFilters: (updates: FilterUpdates) => void;
   removeFilter: (key: string) => void;
   resetFilters: () => void;
 }
 
 export function useTransactionFilters(): UseTransactionFilters {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
-  const updateParams = useCallback(
-    (updates: Record<string, string | undefined>) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      Object.entries(updates).forEach(([key, value]) => {
-        if (value === undefined || value === "") {
-          params.delete(key);
-        } else {
-          params.set(key, value);
-        }
-      });
-
-      if (updates.page === undefined && !("page" in updates)) {
-        params.delete("page");
-      }
-
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    },
-    [searchParams, router, pathname]
-  );
 
   const activeTab = useMemo<TabValue>(() => {
     const type = searchParams.get(TRANSACTION_FILTER_KEYS.TYPE);
@@ -72,132 +59,165 @@ export function useTransactionFilters(): UseTransactionFilters {
     return "ALL";
   }, [searchParams]);
 
-  const searchQuery = searchParams.get(TRANSACTION_FILTER_KEYS.SEARCH) ?? "";
   const currentPage = parseInt(
     searchParams.get(TRANSACTION_FILTER_KEYS.PAGE) ?? "1",
     10
   );
 
-  const filters = useMemo<TransactionFilters>(() => {
-    const result: TransactionFilters = {
+  const filters = useMemo<TransactionFilters>(
+    () => ({
       page: currentPage,
       limit: 20,
+      status:
+        (searchParams.get(
+          TRANSACTION_FILTER_KEYS.STATUS
+        ) as TransactionStatus) || undefined,
+      currency: searchParams.get(TRANSACTION_FILTER_KEYS.CURRENCY) as Currency,
+      search: searchParams.get(TRANSACTION_FILTER_KEYS.SEARCH) || undefined,
+      startDate:
+        searchParams.get(TRANSACTION_FILTER_KEYS.START_DATE) || undefined,
+      endDate: searchParams.get(TRANSACTION_FILTER_KEYS.END_DATE) || undefined,
+    }),
+    [searchParams, currentPage]
+  );
+
+  const searchQuery = filters.search || "";
+
+  const dateRange = useMemo<MonthRange>(() => {
+    if (!filters.startDate || !filters.endDate)
+      return { start: null, end: null };
+    const start = new Date(filters.startDate);
+    const end = new Date(filters.endDate);
+    return {
+      start: { month: start.getMonth(), year: start.getFullYear() },
+      end: { month: end.getMonth(), year: end.getFullYear() },
     };
-
-    const status = searchParams.get(
-      TRANSACTION_FILTER_KEYS.STATUS
-    ) as TransactionStatus | null;
-    if (status) result.status = status;
-
-    const currency = searchParams.get(
-      TRANSACTION_FILTER_KEYS.CURRENCY
-    ) as Currency | null;
-    if (currency) result.currency = currency;
-
-    const search = searchParams.get(TRANSACTION_FILTER_KEYS.SEARCH);
-    if (search) result.search = search;
-
-    const startDate = searchParams.get(TRANSACTION_FILTER_KEYS.START_DATE);
-    if (startDate) result.startDate = startDate;
-
-    const endDate = searchParams.get(TRANSACTION_FILTER_KEYS.END_DATE);
-    if (endDate) result.endDate = endDate;
-
-    return result;
-  }, [searchParams, currentPage]);
+  }, [filters.startDate, filters.endDate]);
 
   const activeFilters = useMemo<ActiveFilter[]>(() => {
     const result: ActiveFilter[] = [];
 
-    const status = searchParams.get(
-      TRANSACTION_FILTER_KEYS.STATUS
-    ) as TransactionStatus | null;
-    if (status) {
+    if (activeTab !== "ALL") {
+      result.push({
+        key: TRANSACTION_FILTER_KEYS.TYPE,
+        label: t("filters.type"),
+        value: activeTab,
+      });
+    }
+
+    if (filters.status) {
       result.push({
         key: TRANSACTION_FILTER_KEYS.STATUS,
         label: t("filters.status"),
-        value: t(`status.${status}`),
+        value: t(`status.${filters.status}`),
       });
     }
 
-    const currency = searchParams.get(TRANSACTION_FILTER_KEYS.CURRENCY);
-    if (currency) {
+    if (filters.currency) {
       result.push({
         key: TRANSACTION_FILTER_KEYS.CURRENCY,
         label: t("filters.currency"),
-        value: currency,
+        value: filters.currency,
       });
     }
 
-    const search = searchParams.get(TRANSACTION_FILTER_KEYS.SEARCH);
-    if (search) {
+    if (filters.search) {
       result.push({
         key: TRANSACTION_FILTER_KEYS.SEARCH,
         label: t("filters.search"),
-        value: `"${search}"`,
+        value: `"${filters.search}"`,
       });
     }
 
+    const dateLabel = formatDateRange(
+      filters.startDate,
+      filters.endDate,
+      language
+    );
+    if (dateLabel) {
+      result.push({
+        key: "dateRange",
+        label: t("filterMenu.date"),
+        value: dateLabel,
+      });
+    }
     return result;
-  }, [searchParams, t]);
+  }, [filters, t, language, activeTab]);
 
   const hasActiveFilters = activeFilters.length > 0 || activeTab !== "ALL";
 
-  const setActiveTab = useCallback(
-    (tab: TabValue) => {
-      updateParams({
-        [TRANSACTION_FILTER_KEYS.TYPE]: tab === "ALL" ? undefined : tab,
-        [TRANSACTION_FILTER_KEYS.PAGE]: undefined,
-      });
-    },
-    [updateParams]
-  );
+  const setFilters = useCallback(
+    (updates: FilterUpdates) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-  const setSearchQuery = useCallback(
-    (query: string) => {
-      updateParams({
-        [TRANSACTION_FILTER_KEYS.SEARCH]: query || undefined,
-        [TRANSACTION_FILTER_KEYS.PAGE]: undefined,
-      });
-    },
-    [updateParams]
-  );
+      if ("type" in updates) {
+        const type = updates.type === "ALL" ? undefined : updates.type;
+        if (type) {
+          params.set(TRANSACTION_FILTER_KEYS.TYPE, type);
+        } else {
+          params.delete(TRANSACTION_FILTER_KEYS.TYPE);
+        }
+      }
 
-  const setStatus = useCallback(
-    (status: TransactionStatus | undefined) => {
-      updateParams({
-        [TRANSACTION_FILTER_KEYS.STATUS]: status ?? undefined,
-        [TRANSACTION_FILTER_KEYS.PAGE]: undefined,
-      });
-    },
-    [updateParams]
-  );
+      if ("status" in updates) {
+        if (updates.status) {
+          params.set(TRANSACTION_FILTER_KEYS.STATUS, updates.status);
+        } else {
+          params.delete(TRANSACTION_FILTER_KEYS.STATUS);
+        }
+      }
 
-  const setCurrency = useCallback(
-    (currency: Currency | undefined) => {
-      updateParams({
-        [TRANSACTION_FILTER_KEYS.CURRENCY]: currency ?? undefined,
-        [TRANSACTION_FILTER_KEYS.PAGE]: undefined,
-      });
-    },
-    [updateParams]
-  );
+      if ("search" in updates) {
+        if (updates.search) {
+          params.set(TRANSACTION_FILTER_KEYS.SEARCH, updates.search);
+        } else {
+          params.delete(TRANSACTION_FILTER_KEYS.SEARCH);
+        }
+      }
 
-  const setPage = useCallback(
-    (page: number) => {
-      updateParams({ [TRANSACTION_FILTER_KEYS.PAGE]: page.toString() });
+      if ("dateRange" in updates) {
+        const range = updates.dateRange;
+        if (range?.start && range?.end) {
+          const startDate = new Date(range.start.year, range.start.month, 1);
+          const endDate = new Date(range.end.year, range.end.month + 1, 0);
+          params.set(
+            TRANSACTION_FILTER_KEYS.START_DATE,
+            startDate.toISOString()
+          );
+          params.set(TRANSACTION_FILTER_KEYS.END_DATE, endDate.toISOString());
+        } else {
+          params.delete(TRANSACTION_FILTER_KEYS.START_DATE);
+          params.delete(TRANSACTION_FILTER_KEYS.END_DATE);
+        }
+      }
+
+      if ("page" in updates) {
+        if (updates.page) {
+          params.set(TRANSACTION_FILTER_KEYS.PAGE, updates.page.toString());
+        } else {
+          params.delete(TRANSACTION_FILTER_KEYS.PAGE);
+        }
+      } else {
+        params.delete(TRANSACTION_FILTER_KEYS.PAGE);
+      }
+
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
     },
-    [updateParams]
+    [searchParams, router, pathname]
   );
 
   const removeFilter = useCallback(
     (key: string) => {
-      updateParams({
-        [key]: undefined,
-        [TRANSACTION_FILTER_KEYS.PAGE]: undefined,
-      });
+      if (key === "dateRange") {
+        setFilters({ dateRange: { start: null, end: null } });
+        return;
+      }
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete(key);
+      params.delete(TRANSACTION_FILTER_KEYS.PAGE);
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
     },
-    [updateParams]
+    [setFilters, searchParams, router, pathname]
   );
 
   const resetFilters = useCallback(() => {
@@ -211,14 +231,11 @@ export function useTransactionFilters(): UseTransactionFilters {
     activeFilters,
     hasActiveFilters,
     currentPage,
-    setActiveTab,
-    setSearchQuery,
-    setStatus,
-    setCurrency,
-    setPage,
+    dateRange,
+    setFilters,
     removeFilter,
     resetFilters,
   };
 }
 
-export type { ActiveFilter, TabValue };
+export type { ActiveFilter, TabValue, FilterUpdates };

@@ -83,4 +83,11 @@
   /* Border */
   --color-border-brand: var(--fixed-border-brand);
   --color-border-primary: var(--border-primary);
+
+  /* Brand */
+  --color-brand-primary: var(--fixed-action-brand-primary);
+  --color-brand-primary-light: var(--fixed-background-brand-primary);
+
+  /* Shadow */
+  --shadow-dropdown: var(--shadow-dropdown);
 }

@@ -19,6 +19,7 @@ export const enUS: TranslationKeys = {
     status: "Status",
     currency: "Currency",
     search: "Search by ID",
+    type: "Type",
     noFilterApplied: "No filter applied",
   },
   status: {
@@ -50,5 +51,34 @@ export const enUS: TranslationKeys = {
       status: "Status",
       amount: "Amount",
     },
+  },
+  filterMenu: {
+    date: "Date",
+    method: "Method",
+    viewTransactionsOf: "View transactions of",
+    selectPeriod: "Select a period",
+    of: "From",
+    to: "To",
+    apply: "Apply",
+    transactionType: "Transaction type",
+  },
+  periods: {
+    thisMonth: "This month",
+    lastMonth: "Last month",
+    last3Months: "Last 3 months",
+    last6Months: "Last 6 months",
+    thisYear: "This year",
+    custom: "Custom",
+  },
+  tabs: {
+    all: "All",
+    pending: "Pending",
+    completed: "Completed",
+    failed: "Failed",
+  },
+  emptyState: {
+    noTransactions: "No transactions found",
+    noTransactionsDescription:
+      "There are no transactions to display with the current filters.",
   },
 };

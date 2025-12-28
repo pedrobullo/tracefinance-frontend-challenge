@@ -1,6 +1,5 @@
 export { TransactionTable } from "./TransactionTable";
 export { TransactionRow } from "./TransactionRow";
-export { TransactionTableHeader } from "./TransactionTableHeader";
 export { TransactionTabs, type TabValue } from "./TransactionTabs";
 export { TransactionSearch } from "./TransactionSearch";
 export { TransactionPagination } from "./TransactionPagination";

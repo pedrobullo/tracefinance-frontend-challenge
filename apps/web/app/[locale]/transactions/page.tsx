@@ -1,8 +1,12 @@
 "use client";
 
+import { useState, useRef, useCallback } from "react";
 import { useTranslation } from "@/contexts";
-import { useTransactions } from "@/hooks/useTransactions";
-import { useTransactionFilters } from "@/hooks/useTransactionFilters";
+import {
+  useTransactions,
+  useTransactionFilters,
+  useOnClickOutside,
+} from "@/hooks";
 import {
   TransactionFilters,
   TransactionPagination,
@@ -10,6 +14,7 @@ import {
   TransactionTabs,
   TransactionTable,
 } from "@/components/transactions";
+import { FilterMenu, type FilterFormValues } from "@/components/filter-menu";
 import { Typography } from "@repo/ui";
 
 export default function Transactions() {
@@ -20,23 +25,35 @@ export default function Transactions() {
     searchQuery,
     activeFilters,
     currentPage,
-    setActiveTab,
-    setSearchQuery,
-    setPage,
+    dateRange,
+    setFilters,
     removeFilter,
   } = useTransactionFilters();
 
+  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
+  const filterMenuRef = useRef<HTMLDivElement>(null);
+
   const clientTypeFilter = activeTab === "ALL" ? undefined : activeTab;
+
+  useOnClickOutside(
+    filterMenuRef,
+    useCallback(() => setIsFilterMenuOpen(false), []),
+    isFilterMenuOpen
+  );
 
   const { transactions, total, isLoading, hasNextPage, hasPreviousPage } =
     useTransactions({ filters, clientTypeFilter });
 
-  const handleNextPage = () => {
-    if (hasNextPage) setPage(currentPage + 1);
-  };
+  const handleApplyFilters = useCallback(
+    (values: FilterFormValues) => {
+      setFilters({ dateRange: values.dateRange, type: values.type ?? "ALL" });
+    },
+    [setFilters]
+  );
 
-  const handlePreviousPage = () => {
-    if (hasPreviousPage) setPage(currentPage - 1);
+  const filterDefaultValues: FilterFormValues = {
+    dateRange,
+    type: activeTab === "ALL" ? null : activeTab,
   };
 
   return (
@@ -49,24 +66,46 @@ export default function Transactions() {
           currentPage={currentPage}
           totalItems={total}
           itemsPerPage={filters.limit || 20}
-          onPreviousPage={handlePreviousPage}
-          onNextPage={handleNextPage}
+          onPreviousPage={() =>
+            hasPreviousPage && setFilters({ page: currentPage - 1 })
+          }
+          onNextPage={() =>
+            hasNextPage && setFilters({ page: currentPage + 1 })
+          }
           hasPreviousPage={hasPreviousPage}
           hasNextPage={hasNextPage}
         />
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="relative flex items-center justify-between">
         <TransactionFilters
           activeFilters={activeFilters}
           onRemoveFilter={removeFilter}
+          onAddFilter={() => setIsFilterMenuOpen(true)}
         />
+        {isFilterMenuOpen && (
+          <div ref={filterMenuRef}>
+            <FilterMenu
+              defaultValues={filterDefaultValues}
+              onApply={handleApplyFilters}
+              onClose={() => setIsFilterMenuOpen(false)}
+            />
+          </div>
+        )}
       </div>
 
-      <TransactionSearch value={searchQuery} onChange={setSearchQuery} />
+      <TransactionSearch
+        value={searchQuery}
+        onChange={(query) => setFilters({ search: query })}
+      />
 
       <div className="rounded bg-level-two py-6">
-        <TransactionTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <TransactionTabs
+          activeTab={activeTab}
+          activeStatus={filters.status}
+          onTabChange={(tab) => setFilters({ type: tab })}
+          onStatusChange={(status) => setFilters({ status })}
+        />
         <TransactionTable transactions={transactions} isLoading={isLoading} />
       </div>
     </div>

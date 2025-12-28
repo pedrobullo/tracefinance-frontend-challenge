@@ -17,6 +17,7 @@ export const ptBR = {
     status: "Status",
     currency: "Moeda",
     search: "Busca por ID",
+    type: "Tipo",
     noFilterApplied: "Nenhum filtro aplicado",
   },
   status: {
@@ -48,6 +49,35 @@ export const ptBR = {
       status: "Status",
       amount: "Valor",
     },
+  },
+  filterMenu: {
+    date: "Data",
+    method: "Método",
+    viewTransactionsOf: "Ver transações de",
+    selectPeriod: "Selecione um período",
+    of: "De",
+    to: "Até",
+    apply: "Aplicar",
+    transactionType: "Tipo de transação",
+  },
+  periods: {
+    thisMonth: "Este mês",
+    lastMonth: "Mês passado",
+    last3Months: "Últimos 3 meses",
+    last6Months: "Últimos 6 meses",
+    thisYear: "Este ano",
+    custom: "Personalizado",
+  },
+  tabs: {
+    all: "Todas",
+    pending: "Pendentes",
+    completed: "Concluídas",
+    failed: "Falhadas",
+  },
+  emptyState: {
+    noTransactions: "Nenhuma transação encontrada",
+    noTransactionsDescription:
+      "Não há transações para exibir com os filtros atuais.",
   },
 };
 
