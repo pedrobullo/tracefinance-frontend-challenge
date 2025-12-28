@@ -10,7 +10,7 @@ const button = tv(
     variants: {
       hierarchy: {
         primary: {
-          base: "bg-border-brand text-fixed-black hover:opacity-90",
+          base: "bg-border-brand text-black hover:opacity-90",
         },
         secondary: {
           base: "bg-level-three text-primary hover:bg-level-one border border-border-primary",

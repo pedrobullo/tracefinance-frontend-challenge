@@ -11,6 +11,7 @@ export interface ModalProps {
   closeOnOverlayClick?: boolean;
   closeOnEscape?: boolean;
   className?: string;
+  testId?: string;
 }
 
 const sizeStyles = {
@@ -20,6 +21,8 @@ const sizeStyles = {
   xl: "max-w-xl",
   full: "max-w-full w-full h-full m-0 rounded-none",
 };
+
+const ANIMATION_DURATION = 200;
 
 export function Modal({
   isOpen,
@@ -31,24 +34,48 @@ export function Modal({
   closeOnOverlayClick = true,
   closeOnEscape = true,
   className = "",
+  testId = "modal",
 }: ModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      setIsClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, ANIMATION_DURATION);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, ANIMATION_DURATION);
+  }, [onClose]);
+
   const handleEscape = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === "Escape" && closeOnEscape) {
-        onClose();
+      if (event.key === "Escape" && closeOnEscape && !isClosing) {
+        handleClose();
       }
     },
-    [closeOnEscape, onClose]
+    [closeOnEscape, handleClose, isClosing]
   );
 
   useEffect(() => {
-    if (isOpen) {
+    if (shouldRender) {
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
     }
@@ -56,28 +83,43 @@ export function Modal({
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, handleEscape]);
+  }, [shouldRender, handleEscape]);
 
-  if (!mounted || !isOpen) return null;
+  if (!mounted || !shouldRender) return null;
 
   const isFullScreen = size === "full";
+
+  const overlayAnimation = isClosing
+    ? "animate-[fadeOut_200ms_ease-in_forwards]"
+    : "animate-[fadeIn_200ms_ease-out]";
+
+  const contentAnimation = isClosing
+    ? isFullScreen
+      ? "animate-[slideDown_200ms_ease-in_forwards]"
+      : "animate-[fadeOutDown_200ms_ease-in_forwards]"
+    : isFullScreen
+      ? "animate-[slideUp_200ms_cubic-bezier(0.16,1,0.3,1)]"
+      : "animate-[fadeInUp_200ms_cubic-bezier(0.16,1,0.3,1)]";
 
   return createPortal(
     <div
       className="fixed inset-0 z-200 flex items-center justify-center"
       role="dialog"
       aria-modal="true"
+      data-testid={testId}
     >
       <div
-        className="fixed inset-0 bg-black/50 animate-fade-in"
-        onClick={closeOnOverlayClick ? onClose : undefined}
+        className={`fixed inset-0 bg-black/50 ${overlayAnimation}`}
+        onClick={closeOnOverlayClick && !isClosing ? handleClose : undefined}
+        data-testid={`${testId}-overlay`}
       />
       <div
         className={`
           relative z-10 bg-white dark:bg-dark-bg
           ${isFullScreen ? "w-full h-full" : "rounded-xl shadow-modal mx-4 my-8 max-h-[90vh] overflow-auto"}
-          ${sizeStyles[size]} animate-slide-up ${className}
+          ${sizeStyles[size]} ${contentAnimation} ${className}
         `}
+        data-testid={`${testId}-content`}
       >
         {(title || showCloseButton) && !isFullScreen && (
           <div className="flex items-center justify-between p-4 border-b border-light-border dark:border-dark-border">
@@ -85,7 +127,7 @@ export function Modal({
             {showCloseButton && (
               <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
                 className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-card"
               >
                 <svg
@@ -108,7 +150,7 @@ export function Modal({
         {isFullScreen && showCloseButton && (
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-4 right-4 z-10 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-card"
           >
             <svg

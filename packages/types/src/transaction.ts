@@ -1,10 +1,10 @@
+import type { TransactionStatus } from "./constants";
 import type {
-  TransactionStatus,
   TransactionType,
   PixKeyType,
   AccountType,
   Currency,
-} from "./constants";
+} from "./schemas";
 
 export interface Transaction {
   id: string;

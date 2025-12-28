@@ -47,10 +47,7 @@ export {
   type TableHeaderCellProps,
   type TableCellProps,
 } from "./Table/Table";
-export {
-  Skeleton,
-  TableRowSkeleton,
-  type SkeletonProps,
-  type TableRowSkeletonProps,
-} from "./Skeleton";
+export { Skeleton, type SkeletonProps } from "./Skeleton";
 export { EmptyState, type EmptyStateProps } from "./EmptyState";
+export { Modal, type ModalProps } from "./Modal";
+export { Stepper, type StepperProps, type StepperStep } from "./Stepper";

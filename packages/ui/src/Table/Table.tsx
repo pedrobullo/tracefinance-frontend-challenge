@@ -10,7 +10,7 @@ const table = tv({
     thead: "",
     tbody: "",
     tr: "border-b border-border-primary last:border-b-0",
-    th: "px-6 py-3 text-left",
+    th: "px-6 py-2 text-left",
     td: "px-6 py-5",
   },
 });

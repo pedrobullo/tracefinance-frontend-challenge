@@ -38,18 +38,19 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
       `}
     >
       <div className="relative p-4">
-        <button
-          type="button"
+        <Button
           onClick={onClose}
-          className="absolute right-2 top-2 rounded-lg p-1 text-tertiary transition-colors hover:bg-fixed-level-three hover:text-fixed-primary"
+          hierarchy="quiet"
+          size="small"
+          className="absolute right-2 top-2"
           aria-label="Close menu"
         >
-          <XMarkIcon className="h-5 w-5" />
-        </button>
+          <XMarkIcon className="h-5 w-5 text-fixed-tertiary" />
+        </Button>
         <div className="mb-4">
           <div className="mb-2 flex items-center gap-2">
-            <SunIcon className="h-4 w-4 text-tertiary" />
-            <Typography variant="100-medium" color="tertiary">
+            <SunIcon className="h-4 w-4 text-fixed-tertiary" />
+            <Typography variant="100-medium" color="fixed-primary">
               {t("theme.label")}
             </Typography>
           </div>
@@ -77,8 +78,8 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
 
         <div className="border-t border-border-primary pt-4">
           <div className="mb-2 flex items-center gap-2">
-            <LanguageIcon className="h-4 w-4 text-tertiary" />
-            <Typography variant="100-medium" color="tertiary">
+            <LanguageIcon className="h-4 w-4 text-fixed-tertiary" />
+            <Typography variant="100-medium" color="fixed-primary">
               {t("language.label")}
             </Typography>
           </div>

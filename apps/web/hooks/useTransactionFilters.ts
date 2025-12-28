@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { toast } from "react-toastify";
 import {
   TRANSACTION_FILTER_KEYS,
   type TransactionFilters,
@@ -9,9 +10,8 @@ import {
 import {
   TRANSACTION_TYPE,
   type TransactionStatus,
-  type Currency,
-  type TransactionType,
 } from "@repo/types/constants";
+import type { Currency, TransactionType } from "@repo/types/schemas";
 import { useTranslation } from "@/contexts";
 import type { MonthRange } from "@repo/ui";
 import { formatDateRange } from "@/utils/date";
@@ -210,14 +210,16 @@ export function useTransactionFilters(): UseTransactionFilters {
     (key: string) => {
       if (key === "dateRange") {
         setFilters({ dateRange: { start: null, end: null } });
+        toast.success(t("filters.removed"));
         return;
       }
       const params = new URLSearchParams(searchParams.toString());
       params.delete(key);
       params.delete(TRANSACTION_FILTER_KEYS.PAGE);
       router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      toast.success(t("filters.removed"));
     },
-    [setFilters, searchParams, router, pathname]
+    [setFilters, searchParams, router, pathname, t]
   );
 
   const resetFilters = useCallback(() => {

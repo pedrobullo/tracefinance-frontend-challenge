@@ -19,6 +19,8 @@ export const ptBR = {
     search: "Busca por ID",
     type: "Tipo",
     noFilterApplied: "Nenhum filtro aplicado",
+    applied: "Filtros aplicados com sucesso",
+    removed: "Filtro removido",
   },
   status: {
     COMPLETED: "Concluído",
@@ -78,6 +80,64 @@ export const ptBR = {
     noTransactions: "Nenhuma transação encontrada",
     noTransactionsDescription:
       "Não há transações para exibir com os filtros atuais.",
+  },
+  transactionForm: {
+    steps: {
+      method: "Método",
+      information: "Informações",
+    },
+    methodTitle: "Método de transação",
+    informationTitle: "Informações",
+    transactionInfo: "Informações da transação",
+    amount: "Valor",
+    taxId: "CPF/CNPJ",
+    legalName: "Nome completo",
+    pixDetails: "Detalhes PIX",
+    keyType: "Tipo de chave",
+    pixKey: "Chave PIX",
+    bankDetails: "Dados bancários",
+    accountType: "Tipo de conta",
+    bank: "Código do banco",
+    account: "Número da conta com dígito",
+    agency: "Agência",
+    descriptionSection: "Adicione uma descrição para esta transação (opcional)",
+    descriptionHelper:
+      "Esta mensagem será exibida para o destinatário desta transação.",
+    descriptionPlaceholder: "Descrição",
+    cancel: "Cancelar",
+    next: "Próximo",
+    back: "Voltar",
+    send: "Enviar",
+    sending: "Enviando...",
+    newTransaction: "Nova Transação",
+    created: "Transação criada com sucesso",
+  },
+  errors: {
+    amount: {
+      required: "Valor é obrigatório",
+      positive: "Valor deve ser positivo",
+    },
+    cpfCnpj: {
+      required: "CPF/CNPJ é obrigatório",
+      min: "CPF/CNPJ deve ter no mínimo 11 caracteres",
+      max: "CPF/CNPJ deve ter no máximo 14 caracteres",
+    },
+    legalName: {
+      required: "Nome completo é obrigatório",
+    },
+    pixKey: {
+      required: "Chave PIX é obrigatória",
+    },
+    bank: {
+      required: "Banco é obrigatório",
+      min: "Código do banco deve ter 3 dígitos",
+    },
+    account: {
+      required: "Conta é obrigatória",
+    },
+    agency: {
+      required: "Agência é obrigatória",
+    },
   },
 };
 

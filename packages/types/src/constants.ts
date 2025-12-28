@@ -12,16 +12,11 @@ export const TRANSACTION_TYPE = {
   TED: "TED",
 } as const;
 
-export type TransactionType =
-  (typeof TRANSACTION_TYPE)[keyof typeof TRANSACTION_TYPE];
-
 export const CURRENCY = {
   BRL: "BRL",
   USD: "USD",
   EUR: "EUR",
 } as const;
-
-export type Currency = (typeof CURRENCY)[keyof typeof CURRENCY];
 
 export const PIX_KEY_TYPE = {
   EMAIL: "EMAIL",
@@ -31,14 +26,10 @@ export const PIX_KEY_TYPE = {
   RANDOM: "RANDOM",
 } as const;
 
-export type PixKeyType = (typeof PIX_KEY_TYPE)[keyof typeof PIX_KEY_TYPE];
-
 export const ACCOUNT_TYPE = {
   CORRENTE: "CORRENTE",
   POUPANCA: "POUPANCA",
 } as const;
-
-export type AccountType = (typeof ACCOUNT_TYPE)[keyof typeof ACCOUNT_TYPE];
 
 export const PAGINATION = {
   DEFAULT_PAGE: 1,

@@ -2,9 +2,9 @@ import { Typography } from "@repo/ui";
 import {
   TRANSACTION_STATUS,
   TRANSACTION_TYPE,
-  type TransactionType,
   type TransactionStatus,
 } from "@repo/types/constants";
+import type { TransactionType } from "@repo/types/schemas";
 import { useTranslation } from "@/contexts";
 
 type TabValue = "ALL" | TransactionType;

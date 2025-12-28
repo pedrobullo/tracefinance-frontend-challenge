@@ -5,7 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { FilterPanel, type FilterType } from "./FilterPanel";
 import { FilterContent } from "./FilterContent";
 import type { MonthRange } from "@repo/ui";
-import type { TransactionType } from "@repo/types/constants";
+import type { TransactionType } from "@repo/types/schemas";
 
 export interface FilterFormValues {
   dateRange: MonthRange;

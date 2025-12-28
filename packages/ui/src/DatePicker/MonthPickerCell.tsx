@@ -7,7 +7,7 @@ const cellStyles = tv({
   variants: {
     state: {
       default: "text-primary hover:bg-level-three",
-      selected: "bg-brand-primary text-fixed-black",
+      selected: "bg-brand-primary text-black",
       inRange: "bg-brand-primary-light text-primary",
     },
     position: {

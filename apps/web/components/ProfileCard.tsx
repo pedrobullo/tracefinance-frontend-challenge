@@ -42,7 +42,7 @@ export function ProfileCard({
                 className="h-full w-full object-cover"
               />
             ) : (
-              <Typography variant="200-medium" color="fixed-black">
+              <Typography variant="200-medium" color="black">
                 {initials}
               </Typography>
             )}
@@ -51,7 +51,7 @@ export function ProfileCard({
             <Typography variant="100-medium" color="fixed-primary">
               {userName}
             </Typography>
-            <Typography variant="100-light" color="tertiary">
+            <Typography variant="100-light" color="fixed-tertiary">
               {companyName}
             </Typography>
           </div>

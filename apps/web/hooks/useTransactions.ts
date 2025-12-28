@@ -3,7 +3,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { transactionService } from "@/services";
 import { transactionKeys } from "@/constants";
 import type { TransactionFilters, Transaction } from "@repo/types/transaction";
-import type { TransactionType } from "@repo/types/constants";
+import { TransactionType } from "@repo/types/schemas";
 
 interface UseTransactionsOptions {
   filters: TransactionFilters;

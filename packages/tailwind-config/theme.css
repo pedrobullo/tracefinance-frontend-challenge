@@ -7,10 +7,16 @@
 /* ===== SEMANTIC VARIABLES - LIGHT (DEFAULT) ===== */
 :root {
   --background-level-one: var(--light-background-level-one);
+  --background-level-two: var(--light-background-level-two);
   --background-level-three: var(--light-background-level-three);
   --background-feedback-success: var(--light-background-feedback-success);
   --background-feedback-warning: var(--light-background-feedback-warning);
   --background-feedback-error: var(--light-background-feedback-error);
+
+  --fixed-level-one: var(--light-fixed-level-one);
+  --fixed-level-two: var(--light-fixed-level-two);
+  --fixed-level-three: var(--light-fixed-level-three);
+  --fixed-level-four: var(--light-fixed-level-four);
 
   --text-primary: var(--light-text-primary);
   --text-tertiary: var(--light-text-tertiary);
@@ -24,6 +30,9 @@
     --light-text-feedback-warning-secondary
   );
 
+  --fixed-text-primary: var(--light-fixed-text-primary);
+  --fixed-text-tertiary: var(--light-fixed-text-tertiary);
+
   --action-brand-secondary-hover: var(--light-action-brand-secondary-hover);
 
   --border-primary: var(--light-border-primary);
@@ -32,10 +41,16 @@
 /* ===== SEMANTIC VARIABLES - DARK ===== */
 .dark {
   --background-level-one: var(--dark-background-level-one);
+  --background-level-two: var(--dark-background-level-two);
   --background-level-three: var(--dark-background-level-three);
   --background-feedback-success: var(--dark-background-feedback-success);
   --background-feedback-warning: var(--dark-background-feedback-warning);
   --background-feedback-error: var(--dark-background-feedback-error);
+
+  --fixed-level-one: var(--dark-fixed-level-one);
+  --fixed-level-two: var(--dark-fixed-level-two);
+  --fixed-level-three: var(--dark-fixed-level-three);
+  --fixed-level-four: var(--dark-fixed-level-four);
 
   --text-primary: var(--dark-text-primary);
   --text-tertiary: var(--dark-text-tertiary);
@@ -49,6 +64,9 @@
     --dark-text-feedback-warning-secondary
   );
 
+  --fixed-text-primary: var(--dark-fixed-text-primary);
+  --fixed-text-tertiary: var(--dark-fixed-text-tertiary);
+
   --action-brand-secondary-hover: var(--dark-action-brand-secondary-hover);
 
   --border-primary: var(--dark-border-primary);
@@ -58,36 +76,112 @@
 @theme inline {
   /* Background */
   --color-level-one: var(--background-level-one);
+  --color-level-two: var(--background-level-two);
   --color-level-three: var(--background-level-three);
-  --color-fixed-level-one: var(--fixed-background-level-one);
-  --color-fixed-level-two: var(--fixed-background-level-two);
-  --color-fixed-level-three: var(--fixed-background-level-three);
   --color-feedback-success: var(--background-feedback-success);
   --color-feedback-warning: var(--background-feedback-warning);
   --color-feedback-error: var(--background-feedback-error);
 
+  /* Fixed Background */
+  --color-fixed-level-one: var(--fixed-level-one);
+  --color-fixed-level-two: var(--fixed-level-two);
+  --color-fixed-level-three: var(--fixed-level-three);
+  --color-fixed-level-four: var(--fixed-level-four);
+
   /* Text */
   --color-primary: var(--text-primary);
   --color-tertiary: var(--text-tertiary);
-  --color-fixed-primary: var(--fixed-text-primary);
-  --color-fixed-black: var(--fixed-text-black);
   --color-disable-primary: var(--text-disable-primary);
   --color-feedback-error-primary: var(--text-feedback-error-primary);
   --color-feedback-error-secondary: var(--text-feedback-error-secondary);
   --color-feedback-success-secondary: var(--text-feedback-success-secondary);
   --color-feedback-warning-secondary: var(--text-feedback-warning-secondary);
 
+  /* Fixed Text */
+  --color-fixed-primary: var(--fixed-text-primary);
+  --color-fixed-tertiary: var(--fixed-text-tertiary);
+
+  /* Brand Text */
+  --color-black: var(--text-black);
+
   /* Action */
   --color-action-brand-secondary-hover: var(--action-brand-secondary-hover);
 
   /* Border */
-  --color-border-brand: var(--fixed-border-brand);
+  --color-border-brand: var(--border-brand);
   --color-border-primary: var(--border-primary);
 
   /* Brand */
-  --color-brand-primary: var(--fixed-action-brand-primary);
-  --color-brand-primary-light: var(--fixed-background-brand-primary);
+  --color-brand-primary: var(--action-brand-primary);
+  --color-brand-primary-light: var(--background-brand-primary);
 
   /* Shadow */
   --shadow-dropdown: var(--shadow-dropdown);
+
+  /* Animations */
+  --animate-fadeIn: fadeIn 200ms ease-out;
+  --animate-slideUp: slideUp 300ms ease-out;
+  --animate-fadeInUp: fadeInUp 200ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }

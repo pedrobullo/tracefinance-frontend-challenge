@@ -1,4 +1,4 @@
-import type { Currency } from "@repo/types/constants";
+import type { Currency } from "@repo/types/schemas";
 import type { Locale } from "@/lib/i18n";
 
 export function formatCurrency(
