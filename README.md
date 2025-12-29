@@ -68,6 +68,7 @@ Documentação detalhada em [docs/](./docs/README.md):
 | Responsividade             | [→ docs/responsiveness.md](./docs/responsiveness.md)             |
 | Storybook                  | [→ docs/storybook.md](./docs/storybook.md)                       |
 | Boas Práticas              | [→ docs/best-practices.md](./docs/best-practices.md)             |
+| Observabilidade            | [→ docs/observability.md](./docs/observability.md)               |
 
 ---
 
@@ -87,6 +88,7 @@ Cada página de documentação contém melhorias específicas. Principais:
 - [ ] Testes E2E com Playwright
 - [ ] Deploy CI/CD com Turborepo cache (nova feature)
 - [ ] Rate limiting no API Gateway
+- [ ] Observabilidade
 
 ---
 

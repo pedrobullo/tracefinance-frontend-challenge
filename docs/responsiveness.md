@@ -44,6 +44,8 @@ const isMobile = useMediaQuery('(max-width: 768px)')
 <Table variant={isMobile ? 'compact' : 'default'} />
 ```
 
+Estamos utilizando o `useMediaQuery` para alterar o modo de exibição do Sidebar e Stepper.
+
 ## Melhorias Futuras
 
 - [ ] Centralização no package `ui`

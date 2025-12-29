@@ -14,6 +14,7 @@ Navegue pelos tópicos abaixo para entender as decisões técnicas do projeto.
 - [Responsividade](./responsiveness.md)
 - [Storybook](./storybook.md)
 - [Boas Práticas](./best-practices.md)
+- [Observabilidade](./observability.md)
 
 ---
 
