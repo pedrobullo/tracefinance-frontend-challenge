@@ -1,0 +1,28 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "devDependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/types": "^8.4.7",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.1.0",
+    "storybook": "^8.4.7",
+    "typescript": "5.9.2",
+    "vite": "^6.0.0"
+  }
+}

@@ -1,0 +1,252 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+
+<Meta title="Foundation/Color Palette" />
+
+# Color Palette
+
+Our design system uses a comprehensive color palette with support for both light and dark themes.
+All colors are defined as CSS custom properties (tokens) and automatically adapt based on the active theme.
+
+## Brand Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Brand Primary"
+    subtitle="--action-brand-primary"
+    colors={{ Primary: "#00f2b1" }}
+  />
+  <ColorItem
+    title="Brand Primary Light"
+    subtitle="--background-brand-primary"
+    colors={{ Light: "#e5fef7" }}
+  />
+  <ColorItem
+    title="Border Brand"
+    subtitle="--border-brand"
+    colors={{ Brand: "#00f2b1" }}
+  />
+</ColorPalette>
+
+## Background Colors (Light Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Level One"
+    subtitle="--light-background-level-one"
+    colors={{ "Level 1": "#f2f3f5" }}
+  />
+  <ColorItem
+    title="Level Two"
+    subtitle="--light-background-level-two"
+    colors={{ "Level 2": "#ffffff" }}
+  />
+  <ColorItem
+    title="Level Three"
+    subtitle="--light-background-level-three"
+    colors={{ "Level 3": "#d8dae0" }}
+  />
+</ColorPalette>
+
+## Background Colors (Dark Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Level One"
+    subtitle="--dark-background-level-one"
+    colors={{ "Level 1": "#0d0e12" }}
+  />
+  <ColorItem
+    title="Level Two"
+    subtitle="--dark-background-level-two"
+    colors={{ "Level 2": "#16171c" }}
+  />
+  <ColorItem
+    title="Level Three"
+    subtitle="--dark-background-level-three"
+    colors={{ "Level 3": "#1a1c23" }}
+  />
+</ColorPalette>
+
+## Fixed Background Colors
+
+These colors remain constant across themes.
+
+<ColorPalette>
+  <ColorItem
+    title="Fixed Levels"
+    subtitle="--fixed-level-*"
+    colors={{
+      "Level 1": "#121212",
+      "Level 2": "#1b1b1b",
+      "Level 3": "#252525",
+      "Level 4": "#363636",
+    }}
+  />
+</ColorPalette>
+
+## Text Colors (Light Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="--light-text-primary"
+    colors={{ Primary: "#25282d" }}
+  />
+  <ColorItem
+    title="Tertiary"
+    subtitle="--light-text-tertiary"
+    colors={{ Tertiary: "#7c8597" }}
+  />
+  <ColorItem
+    title="Disabled"
+    subtitle="--light-text-disable-primary"
+    colors={{ Disabled: "#a3aab6" }}
+  />
+</ColorPalette>
+
+## Text Colors (Dark Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="--dark-text-primary"
+    colors={{ Primary: "#e8eaed" }}
+  />
+  <ColorItem
+    title="Tertiary"
+    subtitle="--dark-text-tertiary"
+    colors={{ Tertiary: "#8a92a3" }}
+  />
+  <ColorItem
+    title="Disabled"
+    subtitle="--dark-text-disable-primary"
+    colors={{ Disabled: "#5a6070" }}
+  />
+</ColorPalette>
+
+## Fixed Text Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Fixed Text"
+    subtitle="--fixed-text-*"
+    colors={{
+      Primary: "#f3f3f3",
+      Tertiary: "#949494",
+    }}
+  />
+</ColorPalette>
+
+## Feedback Colors (Light Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Success"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#e7f8f2",
+      Text: "#0a6f4d",
+    }}
+  />
+  <ColorItem
+    title="Warning"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#fffbed",
+      Text: "#977f2e",
+    }}
+  />
+  <ColorItem
+    title="Error"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#ffebec",
+      "Primary Text": "#fa4d56",
+      "Secondary Text": "#c41e3a",
+    }}
+  />
+</ColorPalette>
+
+## Feedback Colors (Dark Theme)
+
+<ColorPalette>
+  <ColorItem
+    title="Success"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#0a2e1f",
+      Text: "#2dd4a4",
+    }}
+  />
+  <ColorItem
+    title="Warning"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#332b14",
+      Text: "#e6a84e",
+    }}
+  />
+  <ColorItem
+    title="Error"
+    subtitle="Background & Text"
+    colors={{
+      Background: "#3d1319",
+      "Primary Text": "#ff6b75",
+      "Secondary Text": "#ff8a94",
+    }}
+  />
+</ColorPalette>
+
+## Border Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Border"
+    subtitle="Theme-aware borders"
+    colors={{
+      "Light Theme": "#d8dae0",
+      "Dark Theme": "#2a2d35",
+    }}
+  />
+</ColorPalette>
+
+## Action Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Brand Secondary Hover"
+    subtitle="--action-brand-secondary-hover"
+    colors={{
+      "Light Theme": "#7ee9ff",
+      "Dark Theme": "#5dd9f0",
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Usage
+
+### CSS Variables
+
+```css
+.my-element {
+  background-color: var(--background-level-one);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+```
+
+### Tailwind CSS Classes
+
+```jsx
+<div className="bg-level-one text-primary border-border-primary">Content</div>
+```
+
+### Theme Switching
+
+The theme automatically switches when the `.dark` class is applied to a parent element:
+
+```jsx
+<div className="dark">{/* All children will use dark theme colors */}</div>
+```
