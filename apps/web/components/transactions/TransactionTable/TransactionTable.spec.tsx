@@ -11,7 +11,7 @@ jest.mock("@/contexts", () => ({
 const mockTransaction: Transaction = {
   id: "tx-123",
   cpfCnpj: "12345678901",
-  amount: 100,
+  amount: 10000,
   currency: "BRL",
   type: "PIX",
   status: "COMPLETED",
@@ -74,7 +74,7 @@ describe("TransactionTable", () => {
 
     it("renders transaction amount", () => {
       render(<TransactionTable transactions={[mockTransaction]} />);
-      expect(screen.getByText("R$100.00")).toBeInTheDocument();
+      expect(screen.getByText("R$ 100,00")).toBeInTheDocument();
     });
 
     it("renders transaction status badge", () => {
