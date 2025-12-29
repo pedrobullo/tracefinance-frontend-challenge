@@ -41,3 +41,18 @@ export function getTaxIdMask(value: string): string {
   }
   return "00.000.000/0000-00";
 }
+
+/**
+ * Dynamic mask configuration for CPF/CNPJ input
+ * Uses IMask dispatch to switch between masks as user types
+ */
+export const taxIdMaskOptions = {
+  mask: [{ mask: "000.000.000-00" }, { mask: "00.000.000/0000-00" }],
+  dispatch: (
+    appended: string,
+    dynamicMasked: { value: string; compiledMasks: unknown[] }
+  ) => {
+    const digits = (dynamicMasked.value + appended).replace(/\D/g, "");
+    return dynamicMasked.compiledMasks[digits.length > 11 ? 1 : 0];
+  },
+};

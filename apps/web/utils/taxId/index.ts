@@ -1,1 +1,8 @@
-export { isValidTaxId, isCpf, isCnpj, cleanTaxId, getTaxIdMask } from "./taxId";
+export {
+  isValidTaxId,
+  isCpf,
+  isCnpj,
+  cleanTaxId,
+  getTaxIdMask,
+  taxIdMaskOptions,
+} from "./taxId";

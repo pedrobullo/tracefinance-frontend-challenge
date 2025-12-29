@@ -14,7 +14,7 @@ import type { CreateTransactionInput } from "@repo/types/schemas";
 import { useTranslation } from "@/contexts";
 
 import { MaskedInput } from "../MaskedInput/MaskedInput";
-import { getTaxIdMask } from "@/utils/taxId";
+import { taxIdMaskOptions } from "@/utils/taxId";
 import { formatCurrency } from "@/utils/currency";
 
 export function InformationStep() {
@@ -105,7 +105,8 @@ export function InformationStep() {
           control={control}
           render={({ field }) => (
             <MaskedInput
-              mask={getTaxIdMask(field.value || "")}
+              mask={taxIdMaskOptions.mask}
+              dispatch={taxIdMaskOptions.dispatch}
               placeholder={`${t("transactionForm.taxId")} *`}
               value={field.value}
               onAccept={(value) => field.onChange(value)}

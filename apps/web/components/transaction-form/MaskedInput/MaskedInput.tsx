@@ -6,6 +6,7 @@ import { IMaskInput } from "react-imask";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface MaskedInputProps {
   mask: any;
+  dispatch?: any;
   error?: string;
   placeholder?: string;
   value?: string;
@@ -24,6 +25,7 @@ export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
   function MaskedInput(
     {
       mask,
+      dispatch,
       error,
       placeholder,
       value,
@@ -58,6 +60,10 @@ export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
       className: inputClass,
       disabled,
     };
+
+    if (dispatch) {
+      maskProps.dispatch = dispatch;
+    }
 
     if (mask === Number) {
       maskProps.scale = scale ?? 2;

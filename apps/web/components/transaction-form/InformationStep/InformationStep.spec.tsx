@@ -10,6 +10,35 @@ jest.mock("@/contexts", () => ({
 
 jest.mock("@/utils/taxId", () => ({
   getTaxIdMask: () => "000.000.000-00",
+  taxIdMaskOptions: {
+    mask: [{ mask: "000.000.000-00" }, { mask: "00.000.000/0000-00" }],
+    dispatch: jest.fn(),
+  },
+}));
+
+jest.mock("react-imask", () => ({
+  IMaskInput: ({
+    onAccept,
+    value,
+    placeholder,
+    className,
+    disabled,
+  }: {
+    onAccept?: (value: string) => void;
+    value?: string;
+    placeholder?: string;
+    className?: string;
+    disabled?: boolean;
+  }) => (
+    <input
+      data-testid="imask-input"
+      value={value || ""}
+      placeholder={placeholder}
+      className={className}
+      disabled={disabled}
+      onChange={(e) => onAccept?.(e.target.value)}
+    />
+  ),
 }));
 
 const Wrapper = ({
