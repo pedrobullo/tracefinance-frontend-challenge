@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 
 import { COOKIE_NAMES } from "@/constants/cookies";
 import { ThemeProvider, QueryProvider } from "@/contexts";
+import { ThemeMode } from "@/contexts/ThemeContext";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,7 +28,7 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const themeCookie = cookieStore.get(COOKIE_NAMES.THEME);
 
-  const initialTheme = themeCookie?.value === "light" ? "light" : "dark";
+  const initialTheme = themeCookie?.value as ThemeMode | undefined;
   const initialThemeClass = initialTheme === "dark" ? "dark" : "";
 
   return (

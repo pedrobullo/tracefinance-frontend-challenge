@@ -12,7 +12,6 @@ import {
 
 import { setCookie } from "@/lib/cookies/cookie";
 import { COOKIE_NAMES } from "@/constants/cookies";
-import { getSystemTheme } from "@/utils/themeMode";
 
 export type ThemeMode = "light" | "dark";
 
@@ -30,11 +29,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children, initialTheme }: ThemeProviderProps) {
-  const defaultTheme = getSystemTheme();
-
-  const [theme, setThemeState] = useState<ThemeMode>(
-    initialTheme || defaultTheme
-  );
+  const [theme, setThemeState] = useState<ThemeMode>(initialTheme || "light");
 
   const setTheme = useCallback(
     (value: ThemeMode | ((prev: ThemeMode) => ThemeMode)) => {
