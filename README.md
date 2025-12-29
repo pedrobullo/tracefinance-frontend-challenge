@@ -69,6 +69,7 @@ Documentação detalhada em [docs/](./docs/README.md):
 | Storybook                  | [→ docs/storybook.md](./docs/storybook.md)                       |
 | Boas Práticas              | [→ docs/best-practices.md](./docs/best-practices.md)             |
 | Observabilidade            | [→ docs/observability.md](./docs/observability.md)               |
+| Error Handling & Debugging | [→ docs/error-handling.md](./docs/error-handling.md)             |
 
 ---
 

@@ -3,6 +3,12 @@ import "@testing-library/jest-dom";
 // Set consistent timezone and locale for tests
 process.env.TZ = "UTC";
 
+Object.defineProperty(global, "crypto", {
+  value: {
+    randomUUID: () => "test-uuid-" + Math.random().toString(36).substring(2, 9),
+  },
+});
+
 // Mock Intl.DateTimeFormat to use consistent locale (pt-BR)
 const originalDateTimeFormat = Intl.DateTimeFormat;
 jest.spyOn(Intl, "DateTimeFormat").mockImplementation((locale, options) => {

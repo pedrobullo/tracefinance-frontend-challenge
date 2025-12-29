@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { logger } from "@repo/logger";
 
 export function usePersistentState<T>(
   key: string,
@@ -19,7 +20,10 @@ export function usePersistentState<T>(
         return item as T;
       }
     } catch (error) {
-      console.error(`Error loading ${key} from localStorage:`, error);
+      logger.error(`Error loading ${key} from localStorage`, error, {
+        component: "usePersistentState",
+        key,
+      });
       return initialValue;
     }
   });
@@ -40,7 +44,10 @@ export function usePersistentState<T>(
           window.localStorage.setItem(key, storageValue);
         }
       } catch (error) {
-        console.error(`Error saving ${key} to localStorage:`, error);
+        logger.error(`Error saving ${key} to localStorage`, error, {
+          component: "usePersistentState",
+          key,
+        });
       }
     },
     [key, storedValue]
@@ -56,7 +63,10 @@ export function usePersistentState<T>(
             setStoredValue(e.newValue as T);
           }
         } catch (error) {
-          console.error(`Error parsing storage event for ${key}:`, error);
+          logger.error(`Error parsing storage event for ${key}`, error, {
+            component: "usePersistentState",
+            key,
+          });
         }
       }
     };

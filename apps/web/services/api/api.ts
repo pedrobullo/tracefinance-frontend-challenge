@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
+import { logger } from "@repo/logger";
 
-// FIXME: Standardize error types or dynamic every service
 import type { ApiError } from "@repo/types/transaction";
 
 const getDefaultHeaders = (): HeadersInit => ({
@@ -42,6 +42,9 @@ export async function apiCall<T>({
   showErrorToast = true,
 }: ApiCallConfig): Promise<T> {
   const url = `${endpoint}${buildQueryString(params)}`;
+  const requestId = crypto.randomUUID();
+
+  logger.debug("API Request", { requestId, endpoint, method });
 
   try {
     const response = await fetch(url, {
@@ -58,6 +61,12 @@ export async function apiCall<T>({
     if (!response.ok) {
       const error = data as ApiError;
 
+      logger.warn("API Error Response", {
+        requestId,
+        endpoint,
+        status: response.status,
+      });
+
       if (showErrorToast) {
         const errorMessage =
           error.errors?.[0]?.message ||
@@ -69,11 +78,14 @@ export async function apiCall<T>({
       throw error;
     }
 
+    logger.debug("API Success", { requestId, endpoint });
     return data as T;
   } catch (error) {
     if ((error as ApiError).status) {
       throw error;
     }
+
+    logger.error("API Network Error", error, { requestId, endpoint });
 
     const networkError: ApiError = {
       status: 0,

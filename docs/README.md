@@ -15,6 +15,7 @@ Navegue pelos tópicos abaixo para entender as decisões técnicas do projeto.
 - [Storybook](./storybook.md)
 - [Boas Práticas](./best-practices.md)
 - [Observabilidade](./observability.md)
+- [Error Handling & Debugging](./error-handling.md)
 
 ---
 

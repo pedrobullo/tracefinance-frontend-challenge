@@ -6,6 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Modal, Button, Stepper, type StepperStep } from "@repo/ui";
+import { logger } from "@repo/logger";
 import {
   createTransactionSchema,
   type CreateTransactionInput,
@@ -76,7 +77,9 @@ export function TransactionFormModal({
         setCurrentStep("method");
         onClose();
       } catch (error) {
-        console.error("Failed to submit transaction:", error);
+        logger.error("Failed to submit transaction", error, {
+          component: "TransactionFormModal",
+        });
         methods.reset();
         setCurrentStep("method");
       } finally {

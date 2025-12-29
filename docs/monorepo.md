@@ -20,6 +20,7 @@ Utilizar **Turborepo** é perfeito para simular um ambiente real de packages reu
 │  ├── ui/              → Componentes React               │
 │  ├── tailwind-config/ → Tokens + Theme + Styles         │
 │  ├── types/           → Tipos compartilhados            │
+│  ├── logger/          → Logging estruturado             │
 │  ├── eslint-config/   → Regras de lint                  │
 │  └── typescript-config/ → TSConfig base                 │
 └─────────────────────────────────────────────────────────┘
@@ -27,13 +28,14 @@ Utilizar **Turborepo** é perfeito para simular um ambiente real de packages reu
 
 ## Packages
 
-| Package             | Descrição                                                | Libs                         |
-| ------------------- | -------------------------------------------------------- | ---------------------------- |
-| `ui`                | Componentes React reutilizáveis                          | `tailwind-variants`, `react` |
-| `tailwind-config`   | [Tokens CSS](./design-system.md), theme, estilos globais | `tailwindcss`                |
-| `types`             | Tipos TypeScript compartilhados                          | -                            |
-| `eslint-config`     | Configuração ESLint base e Next.js                       | `eslint`                     |
-| `typescript-config` | TSConfig base para herança                               | -                            |
+| Package             | Descrição                                                 | Libs                         |
+| ------------------- | --------------------------------------------------------- | ---------------------------- |
+| `ui`                | Componentes React reutilizáveis                           | `tailwind-variants`, `react` |
+| `tailwind-config`   | [Tokens CSS](./design-system.md), theme, estilos globais  | `tailwindcss`                |
+| `types`             | Tipos TypeScript compartilhados                           | `zod`                        |
+| `logger`            | [Logging estruturado](./error-handling.md) com transports | -                            |
+| `eslint-config`     | Configuração ESLint base e Next.js                        | `eslint`                     |
+| `typescript-config` | TSConfig base para herança                                | -                            |
 
 ## Melhorias Futuras (Monorepo)
 
