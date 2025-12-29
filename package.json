@@ -2,6 +2,7 @@
   "name": "with-tailwind",
   "private": true,
   "scripts": {
+    "setup": "pnpm install && pnpm build:packages",
     "build": "turbo run build",
     "build:packages": "turbo run build --filter=@repo/ui --filter=@repo/types --filter=@repo/logger --filter=@repo/eslint-config --filter=@repo/typescript-config",
     "dev": "turbo run dev --filter=web",
