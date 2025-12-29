@@ -15,9 +15,10 @@ import { useTranslation } from "@/contexts";
 
 import { MaskedInput } from "../MaskedInput/MaskedInput";
 import { getTaxIdMask } from "@/utils/taxId";
+import { formatCurrency } from "@/utils/currency";
 
 export function InformationStep() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const {
     register,
     control,
@@ -80,17 +81,24 @@ export function InformationStep() {
         <Controller
           name="amount"
           control={control}
-          render={({ field }) => (
-            <MaskedInput
-              mask={Number}
-              placeholder={`${t("transactionForm.amount")} *`}
-              value={field.value?.toString() || ""}
-              onAccept={(value) =>
-                field.onChange(value ? parseFloat(value) : 0)
-              }
-              error={t(formErrors.amount?.message as string)}
-            />
-          )}
+          render={({ field }) => {
+            const displayValue = field.value
+              ? formatCurrency(field.value, "BRL", language)
+              : "";
+
+            return (
+              <Input
+                placeholder={`${t("transactionForm.amount")} *`}
+                value={displayValue}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/\D/g, "");
+                  const intValue = parseInt(raw, 10);
+                  field.onChange(intValue > 0 ? intValue : undefined);
+                }}
+                error={t(formErrors.amount?.message as string)}
+              />
+            );
+          }}
         />
         <Controller
           name="cpfCnpj"

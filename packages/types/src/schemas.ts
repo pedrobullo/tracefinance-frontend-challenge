@@ -33,6 +33,7 @@ export const transactionTypeSchema = z.enum([
 export const baseTransactionSchema = z.object({
   amount: z
     .number({ error: "errors.amount.required" })
+    .int({ error: "errors.amount.integer" })
     .positive({ error: "errors.amount.positive" }),
   cpfCnpj: z
     .string({ error: "errors.cpfCnpj.required" })

@@ -16,6 +16,8 @@ export interface MaskedInputProps {
   scale?: number;
   radix?: string;
   thousandsSeparator?: string;
+  mapToRadix?: string[];
+  padFractionalZeros?: boolean;
 }
 
 export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
