@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import { setCookie } from "@/lib/cookies";
+import { setCookie } from "@/lib/cookies/cookie";
 import { COOKIE_NAMES } from "@/constants/cookies";
 import { getSystemTheme } from "@/utils/themeMode";
 

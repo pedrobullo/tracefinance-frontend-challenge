@@ -65,53 +65,82 @@ export function Stepper({
 }: StepperProps) {
   const isVertical = orientation === "vertical";
 
+  if (isVertical) {
+    return (
+      <div className={`flex flex-col ${className}`} data-testid={testId}>
+        {steps.map((step, index) => {
+          const isLast = index === steps.length - 1;
+          const isActive = index === currentStep;
+          const isCompleted = index < currentStep;
+          const lineColor = isCompleted
+            ? "bg-brand-primary"
+            : "bg-fixed-level-four";
+          return (
+            <div
+              key={step.id}
+              className="flex items-start"
+              data-testid={`${testId}-step-${index}`}
+              data-active={isActive}
+              data-completed={isCompleted}
+            >
+              <div className="flex flex-col items-center">
+                <StepIcon
+                  isActive={isActive}
+                  isCompleted={isCompleted}
+                  testId={`${testId}-indicator-${index}`}
+                />
+                {!isLast && (
+                  <div
+                    className={`w-px transition-colors ${lineColor}`}
+                    style={{ height: `${lineHeight}px` }}
+                  />
+                )}
+              </div>
+              <span
+                className={`ml-3 text-sm font-medium transition-colors ${isActive || isCompleted ? "text-fixed-primary" : "text-fixed-tertiary"}`}
+              >
+                {step.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
   return (
-    <div
-      className={`${isVertical ? "flex flex-col" : "flex items-center gap-4"} ${className}`}
-      data-testid={testId}
-    >
+    <div className={`flex items-start ${className}`} data-testid={testId}>
       {steps.map((step, index) => {
         const isLast = index === steps.length - 1;
         const isActive = index === currentStep;
         const isCompleted = index < currentStep;
-        const isPreviousCompleted = index > 0 && index - 1 < currentStep;
-
+        const lineColor = isCompleted
+          ? "bg-brand-primary"
+          : "bg-fixed-level-four";
         return (
           <div
             key={step.id}
-            className={`flex ${isVertical ? "items-start" : "items-center"}`}
+            className="flex items-center"
             data-testid={`${testId}-step-${index}`}
             data-active={isActive}
             data-completed={isCompleted}
           >
-            <div
-              className={`flex ${isVertical ? "flex-col items-center" : "items-center"}`}
-            >
+            <div className="flex flex-col items-center">
               <StepIcon
                 isActive={isActive}
                 isCompleted={isCompleted}
                 testId={`${testId}-indicator-${index}`}
               />
-              {!isLast && isVertical && (
-                <div
-                  className={`w-px transition-colors ${isPreviousCompleted || isCompleted ? "bg-brand-primary" : "bg-fixed-level-four"}`}
-                  style={{ height: `${lineHeight}px` }}
-                />
-              )}
-              {!isLast && !isVertical && (
-                <div
-                  className={`h-px w-8 mx-2 transition-colors ${isPreviousCompleted || isCompleted ? "bg-brand-primary" : "bg-fixed-level-four"}`}
-                />
-              )}
+              <span
+                className={`mt-2 text-sm font-medium transition-colors whitespace-nowrap ${isActive || isCompleted ? "text-fixed-primary" : "text-fixed-tertiary"}`}
+              >
+                {step.label}
+              </span>
             </div>
-            <span
-              className={`
-                ml-3 text-sm font-medium transition-colors
-                ${isActive || isCompleted ? "text-fixed-primary" : "text-fixed-tertiary"}
-              `}
-            >
-              {step.label}
-            </span>
+            {!isLast && (
+              <div
+                className={`h-px w-8 mx-2 -mt-5 transition-colors ${lineColor}`}
+              />
+            )}
           </div>
         );
       })}

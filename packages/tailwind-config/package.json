@@ -5,6 +5,7 @@
   "private": true,
   "exports": {
     ".": "./shared-styles.css",
+    "./shared-styles.css": "./shared-styles.css",
     "./tokens": "./tokens.css",
     "./theme": "./theme.css",
     "./utilities": "./utilities.css",

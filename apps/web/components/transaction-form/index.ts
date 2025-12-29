@@ -1,2 +1,4 @@
-export { TransactionFormModal } from "./TransactionFormModal";
-export type { TransactionFormModalProps } from "./TransactionFormModal";
+export {
+  TransactionFormModal,
+  type TransactionFormModalProps,
+} from "./TransactionFormModal/TransactionFormModal";
