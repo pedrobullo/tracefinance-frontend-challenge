@@ -72,14 +72,18 @@ export function TransactionFormModal({
       setIsSubmitting(true);
       try {
         await onSubmit(data);
+        methods.reset();
+        setCurrentStep("method");
         onClose();
       } catch (error) {
         console.error("Failed to submit transaction:", error);
+        methods.reset();
+        setCurrentStep("method");
       } finally {
         setIsSubmitting(false);
       }
     },
-    [onSubmit, onClose]
+    [onSubmit, onClose, methods]
   );
 
   const handleClose = useCallback(() => {

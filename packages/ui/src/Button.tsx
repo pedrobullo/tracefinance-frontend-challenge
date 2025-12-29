@@ -48,11 +48,10 @@ const button = tv(
       },
       iconOnly: {
         true: {
-          base: "aspect-square",
+          base: "aspect-square !p-0",
         },
       },
     },
-    compoundVariants: [{ iconOnly: true, base: "p-0" }],
     defaultVariants: {
       hierarchy: "primary",
       size: "medium",

@@ -32,25 +32,29 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
   return (
     <div
       className={`
-        absolute bottom-full left-0 mb-2 w-full overflow-hidden rounded-lg
-        bg-fixed-level-two shadow-lg transition-all duration-300 ease-in-out
+        absolute bottom-full left-0 mb-3 w-full overflow-hidden rounded-xl
+        border border-fixed-level-three bg-fixed-level-two
+        shadow-xl transition-all duration-300 ease-in-out
         ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
       `}
     >
-      <div className="relative p-4">
-        <Button
-          onClick={onClose}
-          hierarchy="quiet"
-          size="small"
-          className="absolute right-2 top-2"
-          aria-label="Close menu"
-        >
-          <XMarkIcon className="h-5 w-5 text-fixed-tertiary" />
-        </Button>
-        <div className="mb-4">
-          <div className="mb-2 flex items-center gap-2">
+      <div className="px-5 py-4">
+        <div className="flex justify-end">
+          <Button
+            onClick={onClose}
+            hierarchy="quiet"
+            size="small"
+            iconOnly
+            aria-label="Close menu"
+          >
+            <XMarkIcon className="h-5 w-5 text-fixed-tertiary" />
+          </Button>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
             <SunIcon className="h-4 w-4 text-fixed-tertiary" />
-            <Typography variant="100-medium" color="fixed-primary">
+            <Typography variant="100-medium" color="fixed-tertiary">
               {t("theme.label")}
             </Typography>
           </div>
@@ -76,10 +80,12 @@ export function ProfileMenu({ isOpen, onClose }: ProfileMenuProps) {
           </div>
         </div>
 
-        <div className="border-t border-border-primary pt-4">
-          <div className="mb-2 flex items-center gap-2">
+        <div className="my-4 border-t border-fixed-level-three" />
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
             <LanguageIcon className="h-4 w-4 text-fixed-tertiary" />
-            <Typography variant="100-medium" color="fixed-primary">
+            <Typography variant="100-medium" color="fixed-tertiary">
               {t("language.label")}
             </Typography>
           </div>
