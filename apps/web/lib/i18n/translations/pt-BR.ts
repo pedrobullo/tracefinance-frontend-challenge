@@ -111,6 +111,7 @@ export const ptBR = {
     sending: "Enviando...",
     newTransaction: "Nova Transação",
     created: "Transação criada com sucesso",
+    error: "Erro ao criar transação. Tente novamente.",
   },
   errors: {
     amount: {
@@ -119,8 +120,7 @@ export const ptBR = {
     },
     cpfCnpj: {
       required: "CPF/CNPJ é obrigatório",
-      min: "CPF/CNPJ deve ter no mínimo 11 caracteres",
-      max: "CPF/CNPJ deve ter no máximo 14 caracteres",
+      invalid: "CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos",
     },
     legalName: {
       required: "Nome completo é obrigatório",

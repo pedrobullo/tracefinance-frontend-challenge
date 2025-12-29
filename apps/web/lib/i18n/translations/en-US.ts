@@ -113,6 +113,7 @@ export const enUS: TranslationKeys = {
     sending: "Sending...",
     newTransaction: "New Transaction",
     created: "Transaction created successfully",
+    error: "Error creating transaction. Please try again.",
   },
   errors: {
     amount: {
@@ -121,8 +122,7 @@ export const enUS: TranslationKeys = {
     },
     cpfCnpj: {
       required: "Tax ID is required",
-      min: "Tax ID must be at least 11 characters",
-      max: "Tax ID must be at most 14 characters",
+      invalid: "CPF must have 11 digits or CNPJ must have 14 digits",
     },
     legalName: {
       required: "Legal name is required",

@@ -4,16 +4,13 @@ import { useFormContext } from "react-hook-form";
 
 import { Typography } from "@repo/ui";
 import { TRANSACTION_TYPE } from "@repo/types/constants";
-import type { TransactionType } from "@repo/types/schemas";
+import type { CreateTransactionInput } from "@repo/types/schemas";
 import { useTranslation } from "@/contexts";
 
-interface MethodStepProps {
-  selectedType: TransactionType;
-}
-
-export function MethodStep({ selectedType }: MethodStepProps) {
+export function MethodStep() {
   const { t } = useTranslation();
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext<CreateTransactionInput>();
+  const selectedType = getValues("type");
 
   const methods = [
     { value: TRANSACTION_TYPE.TED, label: "TED" },
@@ -37,7 +34,9 @@ export function MethodStep({ selectedType }: MethodStepProps) {
             <button
               key={method.value}
               type="button"
-              onClick={() => setValue("type", method.value)}
+              onClick={() =>
+                setValue("type", method.value, { shouldValidate: false })
+              }
               className={`
                 flex items-center gap-2 p-5 px-6 rounded-lg bg-level-two
                 transition-colors cursor-pointer

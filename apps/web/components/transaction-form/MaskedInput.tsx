@@ -10,6 +10,7 @@ export interface MaskedInputProps {
   placeholder?: string;
   value?: string;
   onAccept?: (value: string) => void;
+  onBlur?: () => void;
   className?: string;
   disabled?: boolean;
   scale?: number;
@@ -25,6 +26,7 @@ export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
       placeholder,
       value,
       onAccept,
+      onBlur,
       className = "",
       disabled,
       scale,
@@ -49,6 +51,7 @@ export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
       value: value || "",
       inputRef: ref,
       onAccept,
+      onBlur,
       placeholder,
       className: inputClass,
       disabled,

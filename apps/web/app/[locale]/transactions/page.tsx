@@ -7,6 +7,7 @@ import {
   useTransactions,
   useTransactionFilters,
   useOnClickOutside,
+  useCreateTransaction,
 } from "@/hooks";
 import {
   TransactionFilters,
@@ -49,6 +50,8 @@ export default function Transactions() {
   const { transactions, total, isLoading, hasNextPage, hasPreviousPage } =
     useTransactions({ filters, clientTypeFilter });
 
+  const createTransaction = useCreateTransaction();
+
   const handleApplyFilters = useCallback(
     (values: FilterFormValues) => {
       setFilters({ dateRange: values.dateRange, type: values.type ?? "ALL" });
@@ -65,12 +68,15 @@ export default function Transactions() {
 
   const handleCreateTransaction = useCallback(
     async (data: CreateTransactionInput) => {
-      console.log("Creating transaction:", data);
-      // TODO: Implement API call to create transaction
-      toast.success(t("transactionForm.created"));
-      setIsTransactionModalOpen(false);
+      try {
+        await createTransaction.mutateAsync(data);
+        toast.success(t("transactionForm.created"));
+        setIsTransactionModalOpen(false);
+      } catch {
+        toast.error(t("transactionForm.error"));
+      }
     },
-    [t]
+    [createTransaction, t]
   );
 
   return (

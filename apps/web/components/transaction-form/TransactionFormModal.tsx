@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, Activity } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Modal, Button } from "@repo/ui";
@@ -31,33 +31,27 @@ export function TransactionFormModal({
   onSubmit,
 }: TransactionFormModalProps) {
   const { t } = useTranslation();
+
   const [currentStep, setCurrentStep] = useState<FormStep>("method");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const methods = useForm<CreateTransactionInput>({
     resolver: zodResolver(createTransactionSchema),
-    mode: "onTouched",
+    mode: "all",
+    criteriaMode: "all",
     defaultValues: {
       type: TRANSACTION_TYPE.TED,
-      amount: 0,
-      cpfCnpj: "",
-      description: "",
-    },
+      currency: "BRL",
+    } as CreateTransactionInput,
   });
 
-  const { handleSubmit, watch, trigger } = methods;
-  const selectedType = watch("type");
+  const { handleSubmit } = methods;
 
-  const currentStepIndex = STEPS.indexOf(currentStep);
-
-  const handleNext = useCallback(async () => {
+  const handleNext = useCallback(() => {
     if (currentStep === "method") {
-      const isValid = await trigger("type");
-      if (isValid) {
-        setCurrentStep("information");
-      }
+      setCurrentStep("information");
     }
-  }, [currentStep, trigger]);
+  }, [currentStep]);
 
   const handleBack = useCallback(() => {
     if (currentStep === "information") {
@@ -85,6 +79,8 @@ export function TransactionFormModal({
     setCurrentStep("method");
     onClose();
   }, [methods, onClose]);
+
+  const currentStepIndex = STEPS.indexOf(currentStep);
 
   const stepperSteps = [
     {
@@ -121,55 +117,54 @@ export function TransactionFormModal({
               data-testid="transaction-form"
             >
               <div className="w-full max-w-[581px]">
-                {currentStep === "method" && (
-                  <MethodStep selectedType={selectedType} />
-                )}
-                {currentStep === "information" && (
-                  <InformationStep transactionType={selectedType} />
-                )}
-                <div className="flex justify-between mt-10 gap-10">
-                  {currentStep === "method" ? (
-                    <>
-                      <Button
-                        type="button"
-                        hierarchy="secondary"
-                        size="large"
-                        onClick={handleClose}
-                      >
-                        {t("transactionForm.cancel")}
-                      </Button>
-                      <Button
-                        type="button"
-                        hierarchy="primary"
-                        size="large"
-                        onClick={handleNext}
-                      >
-                        {t("transactionForm.next")}
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button
-                        type="button"
-                        hierarchy="secondary"
-                        size="large"
-                        onClick={handleBack}
-                      >
-                        {t("transactionForm.back")}
-                      </Button>
-                      <Button
-                        type="submit"
-                        hierarchy="primary"
-                        size="large"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting
-                          ? t("transactionForm.sending")
-                          : t("transactionForm.send")}
-                      </Button>
-                    </>
-                  )}
-                </div>
+                <Activity
+                  mode={currentStep === "method" ? "visible" : "hidden"}
+                >
+                  <MethodStep />
+                  <div className="flex justify-between mt-10 gap-10">
+                    <Button
+                      type="button"
+                      hierarchy="secondary"
+                      size="large"
+                      onClick={handleClose}
+                    >
+                      {t("transactionForm.cancel")}
+                    </Button>
+                    <Button
+                      type="button"
+                      hierarchy="primary"
+                      size="large"
+                      onClick={handleNext}
+                    >
+                      {t("transactionForm.next")}
+                    </Button>
+                  </div>
+                </Activity>
+                <Activity
+                  mode={currentStep === "information" ? "visible" : "hidden"}
+                >
+                  <InformationStep />
+                  <div className="flex justify-between mt-10 gap-10">
+                    <Button
+                      type="button"
+                      hierarchy="secondary"
+                      size="large"
+                      onClick={handleBack}
+                    >
+                      {t("transactionForm.back")}
+                    </Button>
+                    <Button
+                      type="submit"
+                      hierarchy="primary"
+                      size="large"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting
+                        ? t("transactionForm.sending")
+                        : t("transactionForm.send")}
+                    </Button>
+                  </div>
+                </Activity>
               </div>
             </form>
           </FormProvider>

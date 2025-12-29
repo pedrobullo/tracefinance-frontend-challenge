@@ -10,24 +10,26 @@ import {
   PIX_KEY_TYPE,
   BANKS,
 } from "@repo/types/constants";
-import type { TransactionType } from "@repo/types/schemas";
+import type { CreateTransactionInput } from "@repo/types/schemas";
 import { useTranslation } from "@/contexts";
 
 import { MaskedInput } from "./MaskedInput";
+import { getTaxIdMask } from "@/utils/taxId";
 
-interface InformationStepProps {
-  transactionType: TransactionType;
-}
-
-export function InformationStep({ transactionType }: InformationStepProps) {
+export function InformationStep() {
   const { t } = useTranslation();
   const {
     register,
     control,
     formState: { errors },
-  } = useFormContext();
+    getValues,
+  } = useFormContext<CreateTransactionInput>();
+
+  const transactionType = getValues("type");
 
   const isPix = transactionType === TRANSACTION_TYPE.PIX;
+
+  const formErrors = errors as Record<string, { message?: string } | undefined>;
 
   const keyTypeOptions = useMemo(
     () =>
@@ -86,7 +88,7 @@ export function InformationStep({ transactionType }: InformationStepProps) {
               onAccept={(value) =>
                 field.onChange(value ? parseFloat(value) : 0)
               }
-              error={t(errors.amount?.message as string)}
+              error={t(formErrors.amount?.message as string)}
             />
           )}
         />
@@ -95,17 +97,17 @@ export function InformationStep({ transactionType }: InformationStepProps) {
           control={control}
           render={({ field }) => (
             <MaskedInput
-              mask="000.000.000-00"
+              mask={getTaxIdMask(field.value || "")}
               placeholder={`${t("transactionForm.taxId")} *`}
-              value={field.value || ""}
+              value={field.value}
               onAccept={(value) => field.onChange(value)}
-              error={t(errors.cpfCnpj?.message as string)}
+              error={t(formErrors.cpfCnpj?.message as string)}
             />
           )}
         />
         <Input
           placeholder={`${t("transactionForm.legalName")} *`}
-          error={t(errors.legalName?.message as string)}
+          error={t(formErrors.legalName?.message as string)}
           {...register("legalName")}
         />
       </div>
@@ -128,13 +130,13 @@ export function InformationStep({ transactionType }: InformationStepProps) {
                 options={keyTypeOptions}
                 value={field.value}
                 onChange={field.onChange}
-                error={t(errors.keyType?.message as string)}
+                error={t(formErrors.keyType?.message as string)}
               />
             )}
           />
           <Input
             placeholder={`${t("transactionForm.pixKey")} *`}
-            error={t(errors.pixKey?.message as string)}
+            error={t(formErrors.pixKey?.message as string)}
             {...register("pixKey")}
           />
         </div>
@@ -156,7 +158,7 @@ export function InformationStep({ transactionType }: InformationStepProps) {
                 options={accountTypeOptions}
                 value={field.value}
                 onChange={field.onChange}
-                error={t(errors.accountType?.message as string)}
+                error={t(formErrors.accountType?.message as string)}
               />
             )}
           />
@@ -169,18 +171,18 @@ export function InformationStep({ transactionType }: InformationStepProps) {
                 options={bankOptions}
                 value={field.value}
                 onChange={field.onChange}
-                error={t(errors.bank?.message as string)}
+                error={t(formErrors.bank?.message as string)}
               />
             )}
           />
           <Input
             placeholder={`${t("transactionForm.account")} *`}
-            error={t(errors.account?.message as string)}
+            error={t(formErrors.account?.message as string)}
             {...register("account")}
           />
           <Input
             placeholder={`${t("transactionForm.agency")} *`}
-            error={t(errors.agency?.message as string)}
+            error={t(formErrors.agency?.message as string)}
             {...register("agency")}
           />
         </div>

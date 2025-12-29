@@ -1,8 +1,17 @@
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 
 import { transactionService } from "@/services";
 import { transactionKeys } from "@/constants";
-import type { TransactionFilters, Transaction } from "@repo/types/transaction";
+import type {
+  TransactionFilters,
+  Transaction,
+  CreateTransactionPayload,
+} from "@repo/types/transaction";
 import { TransactionType } from "@repo/types/schemas";
 
 interface UseTransactionsOptions {
@@ -46,4 +55,16 @@ export function useTransactions({
     hasPreviousPage: meta.previousCursor !== null,
     isEmpty: !query.isLoading && transactions.length === 0,
   };
+}
+
+export function useCreateTransaction() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: CreateTransactionPayload) =>
+      transactionService.create(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: transactionKeys.all });
+    },
+  });
 }

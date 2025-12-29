@@ -36,8 +36,14 @@ export const baseTransactionSchema = z.object({
     .positive({ error: "errors.amount.positive" }),
   cpfCnpj: z
     .string({ error: "errors.cpfCnpj.required" })
-    .min(11, { error: "errors.cpfCnpj.min" })
-    .max(14, { error: "errors.cpfCnpj.max" }),
+    .min(1, { error: "errors.cpfCnpj.required" })
+    .refine(
+      (val) => {
+        const digits = val.replace(/\D/g, "");
+        return digits.length === 11 || digits.length === 14;
+      },
+      { message: "errors.cpfCnpj.invalid" }
+    ),
   legalName: z
     .string({ error: "errors.legalName.required" })
     .min(1, { error: "errors.legalName.required" }),

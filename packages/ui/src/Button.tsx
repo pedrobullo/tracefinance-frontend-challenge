@@ -89,12 +89,14 @@ export function Button({
   rightIcon,
   disabled,
   className,
+  type = "button",
   ...props
 }: ButtonProps) {
   const styles = button({ hierarchy, size, radius, fullWidth, iconOnly });
 
   return (
     <button
+      type={type}
       disabled={disabled || isLoading}
       className={`${styles.base()} ${className || ""}`}
       {...props}
