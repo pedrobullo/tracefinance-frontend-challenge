@@ -12,7 +12,12 @@ Aplicação de gerenciamento de transações com formulário multi-step e listag
 
 ```bash
 # Requer Node.js 18+ e pnpm
-pnpm setup
+pnpm install
+pnpm build:packages
+
+# ou
+
+pnpm run setup
 ```
 
 > O comando `setup` executa `pnpm install` seguido de `pnpm build:packages` para compilar os pacotes internos do monorepo.
