@@ -54,6 +54,7 @@ export function useTransactions({
     hasNextPage: meta.nextCursor !== null,
     hasPreviousPage: meta.previousCursor !== null,
     isEmpty: !query.isLoading && transactions.length === 0,
+    isLoadingOrFetching: query.isLoading || query.isFetching,
   };
 }
 

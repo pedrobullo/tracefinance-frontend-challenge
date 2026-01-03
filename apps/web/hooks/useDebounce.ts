@@ -1,34 +1,21 @@
-import { useCallback, useRef, useEffect } from "react";
+import { useState } from "react";
 
-export function useDebounce<TArgs extends unknown[]>(
-  callback: (...args: TArgs) => void,
-  delay: number
-): (...args: TArgs) => void {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const callbackRef = useRef(callback);
+/**
+ * Debounce a function by time
+ * @param {Function} func
+ * @param {Number} delay
+ */
+export function useDebounce(func: (args: unknown[]) => void, delay: number) {
+  const [timer, setTimer] = useState<number | undefined>();
 
-  useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
+  return (...args: Array<unknown>) => {
+    clearTimeout(timer);
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  return useCallback(
-    (...args: TArgs) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      timeoutRef.current = setTimeout(() => {
-        callbackRef.current(...args);
-      }, delay);
-    },
-    [delay]
-  );
+    const _temp = setTimeout(() => {
+      // @ts-expect-error
+      func(...args);
+    }, delay);
+    // @ts-expect-error
+    setTimer(_temp);
+  };
 }

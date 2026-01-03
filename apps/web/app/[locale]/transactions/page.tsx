@@ -47,8 +47,13 @@ export default function Transactions() {
     isFilterMenuOpen
   );
 
-  const { transactions, total, isLoading, hasNextPage, hasPreviousPage } =
-    useTransactions({ filters, clientTypeFilter });
+  const {
+    transactions,
+    total,
+    isLoadingOrFetching,
+    hasNextPage,
+    hasPreviousPage,
+  } = useTransactions({ filters, clientTypeFilter });
 
   const createTransaction = useCreateTransaction();
 
@@ -139,7 +144,10 @@ export default function Transactions() {
           onTabChange={(tab) => setFilters({ type: tab })}
           onStatusChange={(status) => setFilters({ status })}
         />
-        <TransactionTable transactions={transactions} isLoading={isLoading} />
+        <TransactionTable
+          transactions={transactions}
+          isLoading={isLoadingOrFetching}
+        />
       </div>
 
       <TransactionFormModal
